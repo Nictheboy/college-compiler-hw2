@@ -1,378 +1,413 @@
+#ifndef AST_H
+#define AST_H
+
 #pragma once
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <vector>
-#include <memory>
-#include <iostream>
-#include <sstream>
-#include <string>
+#include <stddef.h> // Include for NULL definition
 
-// 全局节点ID计数器，用于生成唯一的节点标识
-static int node_id_counter = 0;
+// Forward declarations of all AST node types
+typedef struct BaseAST BaseAST;
+typedef struct CompUnitListAST CompUnitListAST;
+typedef struct DefListAST DefListAST;
+typedef struct InitListAST InitListAST;
+typedef struct DimListAST DimListAST;
+typedef struct ParamListAST ParamListAST;
+typedef struct BlockListAST BlockListAST;
+typedef struct ArgListAST ArgListAST;
+typedef struct ConstDeclListAST ConstDeclListAST;
+typedef struct ConstDefAST ConstDefAST;
+typedef struct TypeAST TypeAST;
+typedef struct VarDeclListAST VarDeclListAST;
+typedef struct VarDefAST VarDefAST;
+typedef struct FuncIdInfoAST FuncIdInfoAST;
+typedef struct FuncDefAST FuncDefAST;
+typedef struct MainFuncDefAST MainFuncDefAST;
+typedef struct FuncParamAST FuncParamAST;
+typedef struct AssignStmtAST AssignStmtAST;
+typedef struct ExpStmtAST ExpStmtAST;
+typedef struct EmptyStmtAST EmptyStmtAST;
+typedef struct IfStmtAST IfStmtAST;
+typedef struct WhileStmtAST WhileStmtAST;
+typedef struct BreakStmtAST BreakStmtAST;
+typedef struct ContinueStmtAST ContinueStmtAST;
+typedef struct ReturnStmtAST ReturnStmtAST;
+typedef struct PrintfStmtAST PrintfStmtAST;
+typedef struct VarRefAST VarRefAST;
+typedef struct NumberAST NumberAST;
+typedef struct UnaryOpAST UnaryOpAST;
+typedef struct BinaryOpAST BinaryOpAST;
+typedef struct FuncCallAST FuncCallAST;
+typedef struct GetIntAST GetIntAST;
 
-// AST节点基类
-class BaseAST {
-public:
-    virtual ~BaseAST() = default;
-    
-    virtual std::string DumpDOT() const = 0;
 
-    virtual int GetNodeID() const = 0;
-    
-    static int NewNodeID() {
-        return node_id_counter++;
-    }
-};
+// --- Enums ---
 
-// 类型枚举
-enum Type {
-    TYPE_INT,
-    TYPE_VOID
-};
+// Add NodeType enum
+typedef enum {
+    NODE_UNKNOWN,
+    NODE_ASTLIST,
+    NODE_COMPUNIT,
+    NODE_CONSTDECLLIST,
+    NODE_CONSTDEF,
+    NODE_TYPE,
+    NODE_VARDECLLIST,
+    NODE_VARDEF,
+    NODE_FUNCIDINFO,
+    NODE_FUNCDEF,
+    NODE_MAINFUNCDEF,
+    NODE_FUNCPARAM,
+    NODE_ASSIGNSTMT,
+    NODE_EXPSTMT,
+    NODE_EMPTYSTMT,
+    NODE_IFSTMT,
+    NODE_WHILESTMT,
+    NODE_BREAKSTMT,
+    NODE_CONTINUESTMT,
+    NODE_RETURNSTMT,
+    NODE_PRINTFSTMT,
+    NODE_VARREF,
+    NODE_NUMBER,
+    NODE_UNARYOP,
+    NODE_BINARYOP,
+    NODE_FUNCCALL,
+    NODE_GETINT
+} NodeType;
 
-// 编译单元AST节点
-class CompUnitAST : public BaseAST {
-private:
-    int node_id;
+// SysY Basic Types (Add more if needed, e.g., FLOAT)
+typedef enum {
+    SYSY_INT,
+    SYSY_VOID
+    // Add SYSY_FLOAT etc. if your language supports it
+} SysYType;
 
-public:
-    std::unique_ptr<BaseAST> decl;
-    std::unique_ptr<BaseAST> main_func_def;
+// Unary Operators
+typedef enum {
+    UNARY_POS, // +
+    UNARY_NEG, // -
+    UNARY_NOT  // !
+} UnaryOp;
 
-    CompUnitAST() : node_id(NewNodeID()) {}
+// Binary Operators (Grouped by type)
+typedef enum {
+    // Arithmetic
+    BINOP_ADD, BINOP_SUB, BINOP_MUL, BINOP_DIV, BINOP_MOD,
+    // Relational
+    BINOP_LT, BINOP_GT, BINOP_LE, BINOP_GE,
+    // Equality
+    BINOP_EQ, BINOP_NE,
+    // Logical
+    BINOP_LAND, BINOP_LOR,
+    // Note: No ASSIGN here, it's usually a statement
+} BinaryOp;
 
-    int GetNodeID() const override {
-        return node_id;
-    }
+// --- Base Structure ---
+// All AST nodes can be cast to this base type.
+// We can add a 'type' enum field here if needed for easier type checking in C.
+typedef struct BaseAST {
+   NodeType node_type; // Add node type field
+   // Add a NodeType enum field if needed: NodeType node_type;
+   // Add line number tracking: int lineno;
+   int dot_id; // Unique ID for DOT graph generation
+   void (*free_node)(struct BaseAST* node); // Function pointer for freeing node-specific data
+} BaseAST;
 
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        // 定义此节点
-        ss << "  node" << node_id << " [label=\"CompUnit\", shape=box, style=filled, fillcolor=lightblue];\n";
-        
-        // 连接子节点
-        if (decl) {
-            ss << "  node" << node_id << " -> node" << decl->GetNodeID() 
-               << " [label=\"decl\"];\n";
-            ss << decl->DumpDOT();
-        }
-        
-        if (main_func_def) {
-            ss << "  node" << node_id << " -> node" << main_func_def->GetNodeID() 
-               << " [label=\"main_func_def\"];\n";
-            ss << main_func_def->DumpDOT();
-        }
-        
-        return ss.str();
-    }
-};
+// --- Helper for Lists (using a simple linked list) ---
+typedef struct ASTListNode {
+    BaseAST* item;
+    struct ASTListNode* next;
+} ASTListNode;
 
-// 声明AST节点
-class DeclAST : public BaseAST {
-private:
-    int node_id;
+// Generic function to add an item to a linked list (Declaration only)
+void add_ast_list_node(ASTListNode** head, BaseAST* item);
 
-public:
-    enum DeclKind {
-        CONST_DECL,
-        VAR_DECL
-    };
+// Generic function to free a linked list (Declaration only)
+void free_ast_list(ASTListNode* head);
 
-    DeclKind kind;
-    std::unique_ptr<BaseAST> decl;  // 可以是 ConstDecl 或 VarDecl
 
-    DeclAST() : node_id(NewNodeID()) {}
+// --- AST Node Definitions (C Structs) ---
 
-    int GetNodeID() const override {
-        return node_id;
-    }
+// Represents a list in the grammar (e.g., CompUnitItemList, DefList, InitValList)
+// Using a generic linked list approach for simplicity.
+typedef struct ASTList {
+    BaseAST base;        // Inherit base fields (like free_node)
+    ASTListNode* head;  // Head of the linked list
+} ASTList; // Use this for CompUnitListAST, DefListAST, InitListAST, DimListAST, ParamListAST, BlockListAST, ArgListAST
 
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        ss << "  node" << node_id << " [label=\"Decl\", shape=box];\n";
-        
-        if (decl) {
-            ss << "  node" << node_id << " -> node" << decl->GetNodeID() 
-               << " [label=\"decl\"];\n";
-            ss << decl->DumpDOT();
-        }
-        
-        return ss.str();
-    }
-};
 
-// 常量声明AST节点
-class ConstDeclAST : public BaseAST {
-private:
-    int node_id;
+// CompUnit ::= CompUnitItemList
+typedef struct CompUnitAST {
+    BaseAST base;
+    ASTList* items; // Points to an ASTList structure containing CompUnitItems
+} CompUnitAST;
 
-public:
-    Type type;
-    std::string ident;
+// CompUnitItem ::= Decl | FuncDef | MainFuncDef (Handled by the items list in CompUnitAST)
+
+// Decl ::= ConstDecl | VarDecl (Handled by specific Decl types below)
+
+// ConstDecl ::= CONSTTK BType ConstDefList SEMICN
+typedef struct ConstDeclListAST {
+    BaseAST base;
+    TypeAST* btype;
+    ASTList* const_defs; // List of ConstDef
+} ConstDeclListAST;
+
+// ConstDef ::= IDENT ArrayDimensionsOpt ASSIGN ConstInitVal
+typedef struct ConstDefAST {
+    BaseAST base;
+    char* ident; // Remember to free!
+    ASTList* array_dims; // List of ConstExp for dimensions (or NULL)
+    BaseAST* init_val; // ConstInitVal node
+} ConstDefAST;
+
+// BType ::= INTTK | ...
+typedef struct TypeAST {
+    BaseAST base;
+    SysYType type;
+} TypeAST;
+
+// ConstInitVal ::= ConstExp | LBRACE ConstInitValListOpt RBRACE
+// ConstInitValListOpt ::= /* empty */ | ConstInitValList
+// ConstInitValList ::= ConstInitVal | ConstInitValList COMMA ConstInitVal
+// InitVal, InitValListOpt, InitValList are similar (reuse ASTList for lists)
+// For single values like ConstExp or Exp, point directly to that node.
+// For lists like {1, 2}, use an ASTList containing ConstExp/Exp nodes.
+
+// VarDecl ::= BType VarDefList SEMICN
+typedef struct VarDeclListAST {
+    BaseAST base;
+    TypeAST* btype;
+    ASTList* var_defs; // List of VarDef
+} VarDeclListAST;
+
+// VarDef ::= IDENT ArrayDimensionsOpt AssignInitValOpt
+typedef struct VarDefAST {
+    BaseAST base;
+    char* ident; // Remember to free!
+    ASTList* array_dims; // List of ConstExp for dimensions (or NULL)
+    BaseAST* init_val; // InitVal node (or NULL if no assignment)
+} VarDefAST;
+
+// ArrayDimensionsOpt ::= /* empty */ | ArrayDimensions
+// ArrayDimensions ::= LBRACK ConstExp RBRACK | ArrayDimensions LBRACK ConstExp RBRACK
+// Use ASTList containing ConstExp nodes for ArrayDimensions.
+
+// AssignInitValOpt ::= /* empty */ | ASSIGN InitVal
+// Handled within VarDefAST (init_val field is NULL or points to InitVal)
+
+// FuncPrefix ::= (INTTK | VOIDTK) IDENT
+typedef struct FuncIdInfoAST {
+    BaseAST base;
+    SysYType return_type;
+    char* ident; // Remember to free!
+} FuncIdInfoAST;
+
+// FuncDef ::= FuncPrefix LPARENT FuncFParams? RPARENT Block
+typedef struct FuncDefAST {
+    BaseAST base;
+    FuncIdInfoAST* prefix;
+    ASTList* params; // List of FuncFParam (or NULL)
+    ASTList* block; // Block node (represented as ASTList of BlockItems)
+} FuncDefAST;
+
+// MainFuncDef ::= INTTK MAINTK LPARENT RPARENT Block
+typedef struct MainFuncDefAST {
+    BaseAST base;
+    ASTList* block; // Block node (represented as ASTList of BlockItems)
+} MainFuncDefAST;
+
+// FuncFParams ::= FuncFParam | FuncFParams COMMA FuncFParam
+// Use ASTList containing FuncParamAST nodes.
+
+// FuncFParam ::= BType IDENT ArrayDimensionsOpt // SysY allows array params
+typedef struct FuncParamAST {
+    BaseAST base;
+    TypeAST* btype;
+    char* ident; // Remember to free!
+    int is_array; // Flag indicating if it's an array parameter (e.g., int a[])
+    ASTList* array_dims; // Dimensions (often first dim is empty for params) - or NULL
+} FuncParamAST;
+
+// Block ::= LBRACE BlockItemList? RBRACE
+// BlockItemList ::= BlockItem | BlockItemList BlockItem
+// BlockItem ::= Decl | Stmt
+// Use ASTList containing Decl or Stmt nodes for Block and BlockItemList.
+
+// --- Statements ---
+
+// Stmt ::= LVal ASSIGN Exp SEMICN
+typedef struct AssignStmtAST {
+    BaseAST base;
+    BaseAST* lval; // LVal node (VarRefAST)
+    BaseAST* exp;  // Expression node
+} AssignStmtAST;
+
+// Stmt ::= Exp SEMICN
+typedef struct ExpStmtAST {
+    BaseAST base;
+    BaseAST* exp; // Expression node (or NULL if just SEMICN)
+} ExpStmtAST;
+
+// Stmt ::= SEMICN (Represented by ExpStmtAST with exp = NULL, or a dedicated type)
+typedef struct EmptyStmtAST {
+    BaseAST base;
+} EmptyStmtAST;
+
+
+// Stmt ::= Block (Represented by the Block's ASTList)
+
+// Stmt ::= IFTK LPARENT Cond RPARENT Stmt (ELSETK Stmt)?
+typedef struct IfStmtAST {
+    BaseAST base;
+    BaseAST* cond; // Condition expression
+    BaseAST* then_stmt; // Statement or Block
+    BaseAST* else_stmt; // Statement or Block (or NULL)
+} IfStmtAST;
+
+// Stmt ::= WHILETK LPARENT Cond RPARENT Stmt
+typedef struct WhileStmtAST {
+    BaseAST base;
+    BaseAST* cond; // Condition expression
+    BaseAST* body_stmt; // Statement or Block
+} WhileStmtAST;
+
+// Stmt ::= BREAKTK SEMICN
+typedef struct BreakStmtAST {
+    BaseAST base;
+} BreakStmtAST;
+
+// Stmt ::= CONTINUETK SEMICN
+typedef struct ContinueStmtAST {
+    BaseAST base;
+} ContinueStmtAST;
+
+// Stmt ::= RETURNTK Exp? SEMICN
+typedef struct ReturnStmtAST {
+    BaseAST base;
+    BaseAST* return_exp; // Expression node (or NULL)
+} ReturnStmtAST;
+
+// Stmt ::= PRINTFTK LPARENT STR_CONST (COMMA FuncRParams)? RPARENT SEMICN
+typedef struct PrintfStmtAST {
+    BaseAST base;
+    char* format_str; // Remember to free!
+    ASTList* args; // List of expression nodes (or NULL)
+} PrintfStmtAST;
+
+// --- Expressions ---
+
+// LVal ::= IDENT (LBRACK Exp RBRACK)* // Simplified: handle one level of array access
+typedef struct VarRefAST {
+    BaseAST base;
+    char* ident; // Remember to free!
+    ASTList* array_indices; // List of Exp nodes for indices (or NULL)
+} VarRefAST;
+
+// Number ::= INT_CONST
+typedef struct NumberAST {
+    BaseAST base;
     int value;
+} NumberAST;
 
-    ConstDeclAST() : node_id(NewNodeID()) {}
-    
-    // 从C风格字符串构造
-    ConstDeclAST(const char* id) : node_id(NewNodeID()), ident(id) {}
+// UnaryExp ::= PrimaryExp | (PLUS | MINU | NOT) UnaryExp | Call
+typedef struct UnaryOpAST {
+    BaseAST base;
+    UnaryOp op;
+    BaseAST* operand; // Expression node
+} UnaryOpAST;
 
-    int GetNodeID() const override {
-        return node_id;
-    }
+// Binary Expressions (AddExp, MulExp, RelExp, EqExp, LAndExp, LOrExp)
+typedef struct BinaryOpAST {
+    BaseAST base;
+    BinaryOp op;
+    BaseAST* left_operand;
+    BaseAST* right_operand;
+} BinaryOpAST;
 
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        std::string label = "ConstDecl\\nident: " + ident + 
-                            "\\ntype: " + (type == TYPE_INT ? "int" : "void") +
-                            "\\nvalue: " + std::to_string(value);
-        
-        ss << "  node" << node_id << " [label=\"" << label << "\", shape=box, style=filled, fillcolor=lightyellow];\n";
-        
-        return ss.str();
-    }
-};
+// FuncCall ::= IDENT LPARENT FuncRParams? RPARENT
+typedef struct FuncCallAST {
+    BaseAST base;
+    char* func_ident; // Remember to free!
+    ASTList* args;   // List of expression nodes (or NULL)
+} FuncCallAST;
 
-// 变量声明AST节点
-class VarDeclAST : public BaseAST {
-private:
-    int node_id;
+// GETINTTK LPARENT RPARENT
+typedef struct GetIntAST {
+    BaseAST base;
+} GetIntAST;
 
-public:
-    Type type;
-    std::string ident;
+// PrimaryExp ::= LPARENT Exp RPARENT | LVal | Number
+// Exp, Cond simply pass through their child nodes.
 
-    VarDeclAST() : node_id(NewNodeID()) {}
-    
-    // 从C风格字符串构造
-    VarDeclAST(const char* id) : node_id(NewNodeID()), ident(id) {}
 
-    int GetNodeID() const override {
-        return node_id;
-    }
+// --- Helper Function Declarations ---
 
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        std::string label = "VarDecl\\nident: " + ident + 
-                            "\\ntype: " + (type == TYPE_INT ? "int" : "void");
-        
-        ss << "  node" << node_id << " [label=\"" << label << "\", shape=box, style=filled, fillcolor=lightgreen];\n";
-        
-        return ss.str();
-    }
-};
+// Function to create a new AST node (allocates and initializes base)
+// Specific create functions are needed for each node type.
+// BaseAST* create_base_ast(size_t specific_node_size, void (*free_func)(BaseAST*));
+void init_base_ast(BaseAST* node, NodeType type, void (*free_func)(BaseAST*)); // Add NodeType type
 
-// 主函数定义AST节点
-class MainFuncDefAST : public BaseAST {
-private:
-    int node_id;
+// Specific node creation functions
+CompUnitAST* create_comp_unit(ASTList* items);
+ASTList* create_ast_list(); // Creates an empty list container
+ConstDeclListAST* create_const_decl_list(TypeAST* btype, ASTList* defs);
+ConstDefAST* create_const_def(char* ident, ASTList* dims, BaseAST* init_val);
+TypeAST* create_type(SysYType type);
+VarDeclListAST* create_var_decl_list(TypeAST* btype, ASTList* defs);
+VarDefAST* create_var_def(char* ident, ASTList* dims, BaseAST* init_val);
+FuncIdInfoAST* create_func_id_info(SysYType ret_type, char* ident);
+FuncDefAST* create_func_def(FuncIdInfoAST* prefix, ASTList* params, ASTList* block);
+MainFuncDefAST* create_main_func_def(ASTList* block);
+FuncParamAST* create_func_param(TypeAST* btype, char* ident, int is_array, ASTList* dims);
+AssignStmtAST* create_assign_stmt(BaseAST* lval, BaseAST* exp);
+ExpStmtAST* create_exp_stmt(BaseAST* exp);
+EmptyStmtAST* create_empty_stmt();
+IfStmtAST* create_if_stmt(BaseAST* cond, BaseAST* then_stmt, BaseAST* else_stmt);
+WhileStmtAST* create_while_stmt(BaseAST* cond, BaseAST* body);
+BreakStmtAST* create_break_stmt();
+ContinueStmtAST* create_continue_stmt();
+ReturnStmtAST* create_return_stmt(BaseAST* exp);
+PrintfStmtAST* create_printf_stmt(char* format, ASTList* args);
+VarRefAST* create_var_ref(char* ident, ASTList* indices);
+NumberAST* create_number(int value);
+UnaryOpAST* create_unary_op(UnaryOp op, BaseAST* operand);
+BinaryOpAST* create_binary_op(BinaryOp op, BaseAST* left, BaseAST* right);
+FuncCallAST* create_func_call(char* func_ident, ASTList* args);
+GetIntAST* create_getint();
 
-public:
-    std::unique_ptr<BaseAST> block;
 
-    MainFuncDefAST() : node_id(NewNodeID()) {}
+// Function to free the entire AST tree starting from the root (Declaration only)
+void free_ast(BaseAST* root);
 
-    int GetNodeID() const override {
-        return node_id;
-    }
+// Specific free functions (Declarations only)
+void free_default(BaseAST* node);
+void free_ast_list_node(BaseAST* node); // Frees an ASTList
+void free_const_decl_list(BaseAST* node);
+void free_const_def(BaseAST* node);
+void free_var_decl_list(BaseAST* node);
+void free_var_def(BaseAST* node);
+void free_func_id_info(BaseAST* node);
+void free_func_def(BaseAST* node);
+void free_main_func_def(BaseAST* node);
+void free_func_param(BaseAST* node);
+void free_assign_stmt(BaseAST* node);
+void free_exp_stmt(BaseAST* node);
+void free_if_stmt(BaseAST* node);
+void free_while_stmt(BaseAST* node);
+void free_return_stmt(BaseAST* node);
+void free_printf_stmt(BaseAST* node);
+void free_var_ref(BaseAST* node);
+void free_unary_op(BaseAST* node);
+void free_binary_op(BaseAST* node);
+void free_func_call(BaseAST* node);
 
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        ss << "  node" << node_id << " [label=\"MainFuncDef\\nint main()\", shape=box, style=filled, fillcolor=lightcoral];\n";
-        
-        if (block) {
-            ss << "  node" << node_id << " -> node" << block->GetNodeID() 
-               << " [label=\"block\"];\n";
-            ss << block->DumpDOT();
-        }
-        
-        return ss.str();
-    }
-};
+// Declaration for the DOT dump function
+char* dump_ast_dot(BaseAST* root);
 
-// 代码块AST节点
-class BlockAST : public BaseAST {
-private:
-    int node_id;
+// REMOVE inline implementations for add_ast_list_node and free_default from here
 
-public:
-    std::vector<std::unique_ptr<BaseAST>> items;
-
-    BlockAST() : node_id(NewNodeID()) {}
-
-    int GetNodeID() const override {
-        return node_id;
-    }
-
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        ss << "  node" << node_id << " [label=\"Block\", shape=box, style=filled, fillcolor=lightgrey];\n";
-        
-        // 连接所有子项目
-        for (size_t i = 0; i < items.size(); i++) {
-            if (items[i]) {
-                ss << "  node" << node_id << " -> node" << items[i]->GetNodeID() 
-                   << " [label=\"item" << i << "\"];\n";
-                ss << items[i]->DumpDOT();
-            }
-        }
-        
-        return ss.str();
-    }
-};
-
-// 块项目AST节点
-class BlockItemAST : public BaseAST {
-private:
-    int node_id;
-
-public:
-    std::unique_ptr<BaseAST> item;  // 可以是 Decl 或 Stmt
-
-    BlockItemAST() : node_id(NewNodeID()) {}
-
-    int GetNodeID() const override {
-        return node_id;
-    }
-
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        ss << "  node" << node_id << " [label=\"BlockItem\", shape=box];\n";
-        
-        if (item) {
-            ss << "  node" << node_id << " -> node" << item->GetNodeID() 
-               << " [label=\"item\"];\n";
-            ss << item->DumpDOT();
-        }
-        
-        return ss.str();
-    }
-};
-
-// 语句AST节点
-class StmtAST : public BaseAST {
-private:
-    int node_id;
-
-public:
-    enum StmtKind {
-        ASSIGNMENT,
-        BLOCK,
-        RETURN
-    };
-
-    StmtKind kind;
-    std::unique_ptr<BaseAST> content;  // Assignment, Block 或 返回值标识符
-    std::string return_ident;  // 如果是RETURN类型，存储返回的标识符
-
-    StmtAST() : node_id(NewNodeID()) {}
-
-    int GetNodeID() const override {
-        return node_id;
-    }
-
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        std::string label;
-        
-        switch (kind) {
-            case ASSIGNMENT:
-                label = "Stmt\\nkind: ASSIGNMENT";
-                break;
-            case BLOCK:
-                label = "Stmt\\nkind: BLOCK";
-                break;
-            case RETURN:
-                label = "Stmt\\nkind: RETURN\\nident: " + return_ident;
-                break;
-        }
-        
-        ss << "  node" << node_id << " [label=\"" << label << "\", shape=box, style=filled, fillcolor=lightskyblue];\n";
-        
-        if (content) {
-            std::string edge_label;
-            switch (kind) {
-                case ASSIGNMENT:
-                    edge_label = "assignment";
-                    break;
-                case BLOCK:
-                    edge_label = "block";
-                    break;
-                default:
-                    edge_label = "content";
-                    break;
-            }
-            
-            ss << "  node" << node_id << " -> node" << content->GetNodeID() 
-               << " [label=\"" << edge_label << "\"];\n";
-            ss << content->DumpDOT();
-        }
-        
-        return ss.str();
-    }
-};
-
-// 赋值语句AST节点
-class AssignmentAST : public BaseAST {
-private:
-    int node_id;
-
-public:
-    std::string ident;
-
-    AssignmentAST() : node_id(NewNodeID()) {}
-    
-    // 从C风格字符串构造
-    AssignmentAST(const char* id) : node_id(NewNodeID()), ident(id) {}
-
-    int GetNodeID() const override {
-        return node_id;
-    }
-
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        std::string label = "Assignment\\nident: " + ident + "\\nis_getint: true";
-        
-        ss << "  node" << node_id << " [label=\"" << label << "\", shape=box, style=filled, fillcolor=lightsalmon];\n";
-        
-        return ss.str();
-    }
-};
-
-// 数字AST节点
-class NumberAST : public BaseAST {
-private:
-    int node_id;
-
-public:
-    int value;
-
-    NumberAST() : node_id(NewNodeID()) {}
-
-    NumberAST(int val) : node_id(NewNodeID()), value(val) {}
-
-    int GetNodeID() const override {
-        return node_id;
-    }
-
-    std::string DumpDOT() const override {
-        std::stringstream ss;
-        
-        std::string label = "Number\\nvalue: " + std::to_string(value);
-        
-        ss << "  node" << node_id << " [label=\"" << label << "\", shape=ellipse, style=filled, fillcolor=lightpink];\n";
-        
-        return ss.str();
-    }
-};
+#endif // AST_H
 
 

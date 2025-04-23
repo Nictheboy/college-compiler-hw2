@@ -1,0 +1,30 @@
+digraph AST {
+  node [shape=box, style=filled, fontname="Helvetica"];
+  node0 [label="CompUnit", shape=box, fillcolor=lightblue];
+  node1 [label="ConstDeclList", shape=box, fillcolor=lightyellow];
+  node2 [label="Type: int", shape=ellipse, fillcolor=white];
+  node3 [label="ConstDef\nident: a", shape=box, fillcolor=yellow];
+  node4 [label="Number\nvalue: 1", shape=ellipse, fillcolor=pink];
+  node5 [label="MainFuncDef", shape=box, fillcolor=red];
+  node6 [label="VarDeclList", shape=box, fillcolor=lightgreen];
+  node7 [label="Type: int", shape=ellipse, fillcolor=white];
+  node8 [label="VarDef\nident: c", shape=box, fillcolor=green];
+  node9 [label="AssignStmt", shape=box, fillcolor=lightblue];
+  node10 [label="VarRef\nident: c", shape=ellipse, fillcolor=palegreen];
+  node11 [label="GetInt", shape=box, fillcolor=tan];
+  node12 [label="ReturnStmt", shape=box, fillcolor=gold];
+  node13 [label="VarRef\nident: c", shape=ellipse, fillcolor=palegreen];
+  node0 -> node1 [label="item_0"];
+  node1 -> node2 [label="type"];
+  node1 -> node3 [label="def_0"];
+  node3 -> node4 [label="init"];
+  node0 -> node5 [label="item_1"];
+  node5 -> node6 [label="block_item_0"];
+  node6 -> node7 [label="type"];
+  node6 -> node8 [label="def_0"];
+  node5 -> node9 [label="block_item_1"];
+  node9 -> node10 [label="lval"];
+  node9 -> node11 [label="rval"];
+  node5 -> node12 [label="block_item_2"];
+  node12 -> node13 [label="value"];
+}
