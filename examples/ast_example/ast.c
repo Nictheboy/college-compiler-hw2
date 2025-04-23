@@ -548,7 +548,7 @@ static void dump_all_nodes_dot(BaseAST* node, FILE* fp) {
                  *esc_ptr++ = *fmt_ptr++;
              }
              *esc_ptr = '\0';
-             snprintf(label, sizeof(label), "PrintfStmt\\nformat: \"%s\"", escaped_format);
+             snprintf(label, sizeof(label), "PrintfStmt\\nformat: \\\"%s\\\"", escaped_format);
              fillcolor = "skyblue";
              break;
          }

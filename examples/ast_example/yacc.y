@@ -260,7 +260,7 @@ InitValList
 
 /* Added FuncPrefix rule */
 FuncPrefix
-    : INTTK IDENT { $$ = (BaseAST*)create_func_id_info(SYSY_INT, $2); /* free($2) is assumed handled by create_ */ }
+    : BType IDENT { $$ = (BaseAST*)create_func_id_info(SYSY_INT, $2); /* free($2) is assumed handled by create_ */ }
     | VOIDTK IDENT { $$ = (BaseAST*)create_func_id_info(SYSY_VOID, $2); /* free($2) is assumed handled by create_ */ }
     ;
 
