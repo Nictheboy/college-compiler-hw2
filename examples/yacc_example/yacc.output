@@ -1,0 +1,2435 @@
+Terminals unused in grammar
+
+    ELSE
+
+
+State 2 conflicts: 1 shift/reduce
+State 163 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: CompUnit $end
+
+    1 CompUnit: OptDeclList OptFuncDefList MainFuncDef
+
+    2 OptDeclList: ε
+    3            | OptDeclList Decl
+
+    4 OptFuncDefList: ε
+    5               | OptFuncDefList FuncDef
+
+    6 Decl: ConstDecl
+    7     | VarDecl
+
+    8 ConstDecl: CONSTTK BType ConstDefList SEMICN
+
+    9 ConstDefList: ConstDef
+   10             | ConstDefList COMMA ConstDef
+
+   11 ConstDef: IDENFR LBRACK ConstExp RBRACK ASSIGN ConstInitVal
+   12         | IDENFR ASSIGN ConstInitVal
+
+   13 BType: INTTK
+
+   14 ConstInitVal: ConstExp
+   15             | LBRACE OptConstInitValList RBRACE
+
+   16 OptConstInitValList: ε
+   17                    | ConstInitValList
+
+   18 ConstInitValList: ConstInitVal
+   19                 | ConstInitValList COMMA ConstInitVal
+
+   20 VarDecl: BType VarDefList SEMICN
+
+   21 VarDefList: VarDef
+   22           | VarDefList COMMA VarDef
+
+   23 VarDef: IDENFR LBRACK ConstExp RBRACK
+   24       | IDENFR
+   25       | IDENFR LBRACK ConstExp RBRACK ASSIGN InitVal
+   26       | IDENFR ASSIGN InitVal
+
+   27 InitVal: Exp
+   28        | LBRACE OptInitValList RBRACE
+
+   29 OptInitValList: ε
+   30               | InitValList
+
+   31 InitValList: InitVal
+   32            | InitValList COMMA InitVal
+
+   33 FuncDef: FuncType IDENFR LPARENT OptFuncFParams RPARENT Block
+
+   34 OptFuncFParams: ε
+   35               | FuncFParams
+
+   36 MainFuncDef: INTTK MAINTK LPARENT RPARENT Block
+
+   37 FuncType: VOIDTK
+   38         | INTTK
+
+   39 FuncFParams: FuncFParam
+   40            | FuncFParams COMMA FuncFParam
+
+   41 FuncFParam: BType IDENFR
+
+   42 Block: LBRACE OptBlockItems RBRACE
+
+   43 OptBlockItems: ε
+   44              | BlockItemList
+
+   45 BlockItemList: BlockItem
+   46              | BlockItemList BlockItem
+
+   47 BlockItem: ConstDecl
+   48          | VarDecl
+   49          | Stmt
+
+   50 Stmt: LVal ASSIGN Exp SEMICN
+   51     | Exp SEMICN
+   52     | SEMICN
+   53     | Block
+   54     | IFTK LPARENT Cond RPARENT Stmt
+   55     | IFTK LPARENT Cond RPARENT Stmt ELSETK Stmt
+   56     | WHILETK LPARENT Cond RPARENT Stmt
+   57     | BREAKTK SEMICN
+   58     | CONTINUETK SEMICN
+   59     | RETURNTK SEMICN
+   60     | RETURNTK Exp SEMICN
+   61     | PRINTFTK LPARENT STRCON OptPrintfArgs RPARENT SEMICN
+
+   62 OptPrintfArgs: ε
+   63              | COMMA PrintfArgList
+
+   64 PrintfArgList: Exp
+   65              | PrintfArgList COMMA Exp
+
+   66 Cond: LOrExp
+
+   67 Exp: AddExp
+
+   68 LVal: IDENFR
+   69     | IDENFR LBRACK Exp RBRACK
+
+   70 PrimaryExp: LPARENT Exp RPARENT
+   71           | LVal
+   72           | Number
+
+   73 Number: INTCON
+
+   74 UnaryExp: PrimaryExp
+   75         | IDENFR LPARENT OptFuncRParams RPARENT
+   76         | PLUS UnaryExp
+   77         | MINU UnaryExp
+   78         | NOT UnaryExp
+
+   79 OptFuncRParams: ε
+   80               | FuncRParams
+
+   81 FuncRParams: Exp
+   82            | FuncRParams COMMA Exp
+
+   83 MulExp: UnaryExp
+   84       | MulExp MULT UnaryExp
+   85       | MulExp DIV UnaryExp
+   86       | MulExp MOD UnaryExp
+
+   87 AddExp: MulExp
+   88       | AddExp PLUS MulExp
+   89       | AddExp MINU MulExp
+
+   90 RelExp: AddExp
+   91       | RelExp LSS AddExp
+   92       | RelExp GRE AddExp
+   93       | RelExp LEQ AddExp
+   94       | RelExp GEQ AddExp
+
+   95 EqExp: RelExp
+   96      | EqExp EQL RelExp
+   97      | EqExp NEQ RelExp
+
+   98 LAndExp: EqExp
+   99        | LAndExp AND EqExp
+
+  100 LOrExp: LAndExp
+  101       | LOrExp OR LAndExp
+
+  102 ConstExp: AddExp
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    IDENFR (258) 11 12 23 24 25 26 33 41 68 69 75
+    INTCON (259) 73
+    STRCON (260) 61
+    MAINTK (261) 36
+    CONSTTK (262) 8
+    INTTK (263) 13 36 38
+    BREAKTK (264) 57
+    CONTINUETK (265) 58
+    IFTK (266) 54 55
+    ELSETK (267) 55
+    VOIDTK (268) 37
+    WHILETK (269) 56
+    PRINTFTK (270) 61
+    RETURNTK (271) 59 60
+    NOT (272) 78
+    AND (273) 99
+    OR (274) 101
+    PLUS (275) 76 88
+    MINU (276) 77 89
+    MULT (277) 84
+    DIV (278) 85
+    MOD (279) 86
+    ASSIGN (280) 11 12 25 26 50
+    SEMICN (281) 8 20 50 51 52 57 58 59 60 61
+    COMMA (282) 10 19 22 32 40 63 65 82
+    LPARENT (283) 33 36 54 55 56 61 70 75
+    RPARENT (284) 33 36 54 55 56 61 70 75
+    LBRACK (285) 11 23 25 69
+    RBRACK (286) 11 23 25 69
+    LBRACE (287) 15 28 42
+    RBRACE (288) 15 28 42
+    LSS (289) 91
+    LEQ (290) 93
+    GRE (291) 92
+    GEQ (292) 94
+    EQL (293) 96
+    NEQ (294) 97
+    UMINUS (295)
+    UPLUS (296)
+    THEN (297)
+    ELSE (298)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (44)
+        on left: 0
+    CompUnit (45)
+        on left: 1
+        on right: 0
+    OptDeclList (46)
+        on left: 2 3
+        on right: 1 3
+    OptFuncDefList (47)
+        on left: 4 5
+        on right: 1 5
+    Decl (48)
+        on left: 6 7
+        on right: 3
+    ConstDecl (49)
+        on left: 8
+        on right: 6 47
+    ConstDefList (50)
+        on left: 9 10
+        on right: 8 10
+    ConstDef (51)
+        on left: 11 12
+        on right: 9 10
+    BType (52)
+        on left: 13
+        on right: 8 20 41
+    ConstInitVal (53)
+        on left: 14 15
+        on right: 11 12 18 19
+    OptConstInitValList (54)
+        on left: 16 17
+        on right: 15
+    ConstInitValList (55)
+        on left: 18 19
+        on right: 17 19
+    VarDecl (56)
+        on left: 20
+        on right: 7 48
+    VarDefList (57)
+        on left: 21 22
+        on right: 20 22
+    VarDef (58)
+        on left: 23 24 25 26
+        on right: 21 22
+    InitVal (59)
+        on left: 27 28
+        on right: 25 26 31 32
+    OptInitValList (60)
+        on left: 29 30
+        on right: 28
+    InitValList (61)
+        on left: 31 32
+        on right: 30 32
+    FuncDef (62)
+        on left: 33
+        on right: 5
+    OptFuncFParams (63)
+        on left: 34 35
+        on right: 33
+    MainFuncDef (64)
+        on left: 36
+        on right: 1
+    FuncType (65)
+        on left: 37 38
+        on right: 33
+    FuncFParams (66)
+        on left: 39 40
+        on right: 35 40
+    FuncFParam (67)
+        on left: 41
+        on right: 39 40
+    Block (68)
+        on left: 42
+        on right: 33 36 53
+    OptBlockItems (69)
+        on left: 43 44
+        on right: 42
+    BlockItemList (70)
+        on left: 45 46
+        on right: 44 46
+    BlockItem (71)
+        on left: 47 48 49
+        on right: 45 46
+    Stmt (72)
+        on left: 50 51 52 53 54 55 56 57 58 59 60 61
+        on right: 49 54 55 56
+    OptPrintfArgs (73)
+        on left: 62 63
+        on right: 61
+    PrintfArgList (74)
+        on left: 64 65
+        on right: 63 65
+    Cond (75)
+        on left: 66
+        on right: 54 55 56
+    Exp (76)
+        on left: 67
+        on right: 27 50 51 60 64 65 69 70 81 82
+    LVal (77)
+        on left: 68 69
+        on right: 50 71
+    PrimaryExp (78)
+        on left: 70 71 72
+        on right: 74
+    Number (79)
+        on left: 73
+        on right: 72
+    UnaryExp (80)
+        on left: 74 75 76 77 78
+        on right: 76 77 78 83 84 85 86
+    OptFuncRParams (81)
+        on left: 79 80
+        on right: 75
+    FuncRParams (82)
+        on left: 81 82
+        on right: 80 82
+    MulExp (83)
+        on left: 83 84 85 86
+        on right: 84 85 86 87 88 89
+    AddExp (84)
+        on left: 87 88 89
+        on right: 67 88 89 90 91 92 93 94 102
+    RelExp (85)
+        on left: 90 91 92 93 94
+        on right: 91 92 93 94 95 96 97
+    EqExp (86)
+        on left: 95 96 97
+        on right: 96 97 98 99
+    LAndExp (87)
+        on left: 98 99
+        on right: 99 100 101
+    LOrExp (88)
+        on left: 100 101
+        on right: 66 101
+    ConstExp (89)
+        on left: 102
+        on right: 11 14 23 25
+
+
+State 0
+
+    0 $accept: • CompUnit $end
+
+    $default  reduce using rule 2 (OptDeclList)
+
+    CompUnit     go to state 1
+    OptDeclList  go to state 2
+
+
+State 1
+
+    0 $accept: CompUnit • $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 CompUnit: OptDeclList • OptFuncDefList MainFuncDef
+    3 OptDeclList: OptDeclList • Decl
+
+    CONSTTK  shift, and go to state 4
+    INTTK    shift, and go to state 5
+
+    INTTK     [reduce using rule 4 (OptFuncDefList)]
+    $default  reduce using rule 4 (OptFuncDefList)
+
+    OptFuncDefList  go to state 6
+    Decl            go to state 7
+    ConstDecl       go to state 8
+    BType           go to state 9
+    VarDecl         go to state 10
+
+
+State 3
+
+    0 $accept: CompUnit $end •
+
+    $default  accept
+
+
+State 4
+
+    8 ConstDecl: CONSTTK • BType ConstDefList SEMICN
+
+    INTTK  shift, and go to state 5
+
+    BType  go to state 11
+
+
+State 5
+
+   13 BType: INTTK •
+
+    $default  reduce using rule 13 (BType)
+
+
+State 6
+
+    1 CompUnit: OptDeclList OptFuncDefList • MainFuncDef
+    5 OptFuncDefList: OptFuncDefList • FuncDef
+
+    INTTK   shift, and go to state 12
+    VOIDTK  shift, and go to state 13
+
+    FuncDef      go to state 14
+    MainFuncDef  go to state 15
+    FuncType     go to state 16
+
+
+State 7
+
+    3 OptDeclList: OptDeclList Decl •
+
+    $default  reduce using rule 3 (OptDeclList)
+
+
+State 8
+
+    6 Decl: ConstDecl •
+
+    $default  reduce using rule 6 (Decl)
+
+
+State 9
+
+   20 VarDecl: BType • VarDefList SEMICN
+
+    IDENFR  shift, and go to state 17
+
+    VarDefList  go to state 18
+    VarDef      go to state 19
+
+
+State 10
+
+    7 Decl: VarDecl •
+
+    $default  reduce using rule 7 (Decl)
+
+
+State 11
+
+    8 ConstDecl: CONSTTK BType • ConstDefList SEMICN
+
+    IDENFR  shift, and go to state 20
+
+    ConstDefList  go to state 21
+    ConstDef      go to state 22
+
+
+State 12
+
+   36 MainFuncDef: INTTK • MAINTK LPARENT RPARENT Block
+   38 FuncType: INTTK •
+
+    MAINTK  shift, and go to state 23
+
+    $default  reduce using rule 38 (FuncType)
+
+
+State 13
+
+   37 FuncType: VOIDTK •
+
+    $default  reduce using rule 37 (FuncType)
+
+
+State 14
+
+    5 OptFuncDefList: OptFuncDefList FuncDef •
+
+    $default  reduce using rule 5 (OptFuncDefList)
+
+
+State 15
+
+    1 CompUnit: OptDeclList OptFuncDefList MainFuncDef •
+
+    $default  reduce using rule 1 (CompUnit)
+
+
+State 16
+
+   33 FuncDef: FuncType • IDENFR LPARENT OptFuncFParams RPARENT Block
+
+    IDENFR  shift, and go to state 24
+
+
+State 17
+
+   23 VarDef: IDENFR • LBRACK ConstExp RBRACK
+   24       | IDENFR •
+   25       | IDENFR • LBRACK ConstExp RBRACK ASSIGN InitVal
+   26       | IDENFR • ASSIGN InitVal
+
+    ASSIGN  shift, and go to state 25
+    LBRACK  shift, and go to state 26
+
+    $default  reduce using rule 24 (VarDef)
+
+
+State 18
+
+   20 VarDecl: BType VarDefList • SEMICN
+   22 VarDefList: VarDefList • COMMA VarDef
+
+    SEMICN  shift, and go to state 27
+    COMMA   shift, and go to state 28
+
+
+State 19
+
+   21 VarDefList: VarDef •
+
+    $default  reduce using rule 21 (VarDefList)
+
+
+State 20
+
+   11 ConstDef: IDENFR • LBRACK ConstExp RBRACK ASSIGN ConstInitVal
+   12         | IDENFR • ASSIGN ConstInitVal
+
+    ASSIGN  shift, and go to state 29
+    LBRACK  shift, and go to state 30
+
+
+State 21
+
+    8 ConstDecl: CONSTTK BType ConstDefList • SEMICN
+   10 ConstDefList: ConstDefList • COMMA ConstDef
+
+    SEMICN  shift, and go to state 31
+    COMMA   shift, and go to state 32
+
+
+State 22
+
+    9 ConstDefList: ConstDef •
+
+    $default  reduce using rule 9 (ConstDefList)
+
+
+State 23
+
+   36 MainFuncDef: INTTK MAINTK • LPARENT RPARENT Block
+
+    LPARENT  shift, and go to state 33
+
+
+State 24
+
+   33 FuncDef: FuncType IDENFR • LPARENT OptFuncFParams RPARENT Block
+
+    LPARENT  shift, and go to state 34
+
+
+State 25
+
+   26 VarDef: IDENFR ASSIGN • InitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 41
+
+    InitVal     go to state 42
+    Exp         go to state 43
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 26
+
+   23 VarDef: IDENFR LBRACK • ConstExp RBRACK
+   25       | IDENFR LBRACK • ConstExp RBRACK ASSIGN InitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 50
+    ConstExp    go to state 51
+
+
+State 27
+
+   20 VarDecl: BType VarDefList SEMICN •
+
+    $default  reduce using rule 20 (VarDecl)
+
+
+State 28
+
+   22 VarDefList: VarDefList COMMA • VarDef
+
+    IDENFR  shift, and go to state 17
+
+    VarDef  go to state 52
+
+
+State 29
+
+   12 ConstDef: IDENFR ASSIGN • ConstInitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 53
+
+    ConstInitVal  go to state 54
+    LVal          go to state 44
+    PrimaryExp    go to state 45
+    Number        go to state 46
+    UnaryExp      go to state 47
+    MulExp        go to state 48
+    AddExp        go to state 50
+    ConstExp      go to state 55
+
+
+State 30
+
+   11 ConstDef: IDENFR LBRACK • ConstExp RBRACK ASSIGN ConstInitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 50
+    ConstExp    go to state 56
+
+
+State 31
+
+    8 ConstDecl: CONSTTK BType ConstDefList SEMICN •
+
+    $default  reduce using rule 8 (ConstDecl)
+
+
+State 32
+
+   10 ConstDefList: ConstDefList COMMA • ConstDef
+
+    IDENFR  shift, and go to state 20
+
+    ConstDef  go to state 57
+
+
+State 33
+
+   36 MainFuncDef: INTTK MAINTK LPARENT • RPARENT Block
+
+    RPARENT  shift, and go to state 58
+
+
+State 34
+
+   33 FuncDef: FuncType IDENFR LPARENT • OptFuncFParams RPARENT Block
+
+    INTTK  shift, and go to state 5
+
+    $default  reduce using rule 34 (OptFuncFParams)
+
+    BType           go to state 59
+    OptFuncFParams  go to state 60
+    FuncFParams     go to state 61
+    FuncFParam      go to state 62
+
+
+State 35
+
+   68 LVal: IDENFR •
+   69     | IDENFR • LBRACK Exp RBRACK
+   75 UnaryExp: IDENFR • LPARENT OptFuncRParams RPARENT
+
+    LPARENT  shift, and go to state 63
+    LBRACK   shift, and go to state 64
+
+    $default  reduce using rule 68 (LVal)
+
+
+State 36
+
+   73 Number: INTCON •
+
+    $default  reduce using rule 73 (Number)
+
+
+State 37
+
+   78 UnaryExp: NOT • UnaryExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 65
+
+
+State 38
+
+   76 UnaryExp: PLUS • UnaryExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 66
+
+
+State 39
+
+   77 UnaryExp: MINU • UnaryExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 67
+
+
+State 40
+
+   70 PrimaryExp: LPARENT • Exp RPARENT
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Exp         go to state 68
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 41
+
+   28 InitVal: LBRACE • OptInitValList RBRACE
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 41
+
+    $default  reduce using rule 29 (OptInitValList)
+
+    InitVal         go to state 69
+    OptInitValList  go to state 70
+    InitValList     go to state 71
+    Exp             go to state 43
+    LVal            go to state 44
+    PrimaryExp      go to state 45
+    Number          go to state 46
+    UnaryExp        go to state 47
+    MulExp          go to state 48
+    AddExp          go to state 49
+
+
+State 42
+
+   26 VarDef: IDENFR ASSIGN InitVal •
+
+    $default  reduce using rule 26 (VarDef)
+
+
+State 43
+
+   27 InitVal: Exp •
+
+    $default  reduce using rule 27 (InitVal)
+
+
+State 44
+
+   71 PrimaryExp: LVal •
+
+    $default  reduce using rule 71 (PrimaryExp)
+
+
+State 45
+
+   74 UnaryExp: PrimaryExp •
+
+    $default  reduce using rule 74 (UnaryExp)
+
+
+State 46
+
+   72 PrimaryExp: Number •
+
+    $default  reduce using rule 72 (PrimaryExp)
+
+
+State 47
+
+   83 MulExp: UnaryExp •
+
+    $default  reduce using rule 83 (MulExp)
+
+
+State 48
+
+   84 MulExp: MulExp • MULT UnaryExp
+   85       | MulExp • DIV UnaryExp
+   86       | MulExp • MOD UnaryExp
+   87 AddExp: MulExp •
+
+    MULT  shift, and go to state 72
+    DIV   shift, and go to state 73
+    MOD   shift, and go to state 74
+
+    $default  reduce using rule 87 (AddExp)
+
+
+State 49
+
+   67 Exp: AddExp •
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 67 (Exp)
+
+
+State 50
+
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+  102 ConstExp: AddExp •
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 102 (ConstExp)
+
+
+State 51
+
+   23 VarDef: IDENFR LBRACK ConstExp • RBRACK
+   25       | IDENFR LBRACK ConstExp • RBRACK ASSIGN InitVal
+
+    RBRACK  shift, and go to state 77
+
+
+State 52
+
+   22 VarDefList: VarDefList COMMA VarDef •
+
+    $default  reduce using rule 22 (VarDefList)
+
+
+State 53
+
+   15 ConstInitVal: LBRACE • OptConstInitValList RBRACE
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 53
+
+    $default  reduce using rule 16 (OptConstInitValList)
+
+    ConstInitVal         go to state 78
+    OptConstInitValList  go to state 79
+    ConstInitValList     go to state 80
+    LVal                 go to state 44
+    PrimaryExp           go to state 45
+    Number               go to state 46
+    UnaryExp             go to state 47
+    MulExp               go to state 48
+    AddExp               go to state 50
+    ConstExp             go to state 55
+
+
+State 54
+
+   12 ConstDef: IDENFR ASSIGN ConstInitVal •
+
+    $default  reduce using rule 12 (ConstDef)
+
+
+State 55
+
+   14 ConstInitVal: ConstExp •
+
+    $default  reduce using rule 14 (ConstInitVal)
+
+
+State 56
+
+   11 ConstDef: IDENFR LBRACK ConstExp • RBRACK ASSIGN ConstInitVal
+
+    RBRACK  shift, and go to state 81
+
+
+State 57
+
+   10 ConstDefList: ConstDefList COMMA ConstDef •
+
+    $default  reduce using rule 10 (ConstDefList)
+
+
+State 58
+
+   36 MainFuncDef: INTTK MAINTK LPARENT RPARENT • Block
+
+    LBRACE  shift, and go to state 82
+
+    Block  go to state 83
+
+
+State 59
+
+   41 FuncFParam: BType • IDENFR
+
+    IDENFR  shift, and go to state 84
+
+
+State 60
+
+   33 FuncDef: FuncType IDENFR LPARENT OptFuncFParams • RPARENT Block
+
+    RPARENT  shift, and go to state 85
+
+
+State 61
+
+   35 OptFuncFParams: FuncFParams •
+   40 FuncFParams: FuncFParams • COMMA FuncFParam
+
+    COMMA  shift, and go to state 86
+
+    $default  reduce using rule 35 (OptFuncFParams)
+
+
+State 62
+
+   39 FuncFParams: FuncFParam •
+
+    $default  reduce using rule 39 (FuncFParams)
+
+
+State 63
+
+   75 UnaryExp: IDENFR LPARENT • OptFuncRParams RPARENT
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    $default  reduce using rule 79 (OptFuncRParams)
+
+    Exp             go to state 87
+    LVal            go to state 44
+    PrimaryExp      go to state 45
+    Number          go to state 46
+    UnaryExp        go to state 47
+    OptFuncRParams  go to state 88
+    FuncRParams     go to state 89
+    MulExp          go to state 48
+    AddExp          go to state 49
+
+
+State 64
+
+   69 LVal: IDENFR LBRACK • Exp RBRACK
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Exp         go to state 90
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 65
+
+   78 UnaryExp: NOT UnaryExp •
+
+    $default  reduce using rule 78 (UnaryExp)
+
+
+State 66
+
+   76 UnaryExp: PLUS UnaryExp •
+
+    $default  reduce using rule 76 (UnaryExp)
+
+
+State 67
+
+   77 UnaryExp: MINU UnaryExp •
+
+    $default  reduce using rule 77 (UnaryExp)
+
+
+State 68
+
+   70 PrimaryExp: LPARENT Exp • RPARENT
+
+    RPARENT  shift, and go to state 91
+
+
+State 69
+
+   31 InitValList: InitVal •
+
+    $default  reduce using rule 31 (InitValList)
+
+
+State 70
+
+   28 InitVal: LBRACE OptInitValList • RBRACE
+
+    RBRACE  shift, and go to state 92
+
+
+State 71
+
+   30 OptInitValList: InitValList •
+   32 InitValList: InitValList • COMMA InitVal
+
+    COMMA  shift, and go to state 93
+
+    $default  reduce using rule 30 (OptInitValList)
+
+
+State 72
+
+   84 MulExp: MulExp MULT • UnaryExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 94
+
+
+State 73
+
+   85 MulExp: MulExp DIV • UnaryExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 95
+
+
+State 74
+
+   86 MulExp: MulExp MOD • UnaryExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 96
+
+
+State 75
+
+   88 AddExp: AddExp PLUS • MulExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 97
+
+
+State 76
+
+   89 AddExp: AddExp MINU • MulExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 98
+
+
+State 77
+
+   23 VarDef: IDENFR LBRACK ConstExp RBRACK •
+   25       | IDENFR LBRACK ConstExp RBRACK • ASSIGN InitVal
+
+    ASSIGN  shift, and go to state 99
+
+    $default  reduce using rule 23 (VarDef)
+
+
+State 78
+
+   18 ConstInitValList: ConstInitVal •
+
+    $default  reduce using rule 18 (ConstInitValList)
+
+
+State 79
+
+   15 ConstInitVal: LBRACE OptConstInitValList • RBRACE
+
+    RBRACE  shift, and go to state 100
+
+
+State 80
+
+   17 OptConstInitValList: ConstInitValList •
+   19 ConstInitValList: ConstInitValList • COMMA ConstInitVal
+
+    COMMA  shift, and go to state 101
+
+    $default  reduce using rule 17 (OptConstInitValList)
+
+
+State 81
+
+   11 ConstDef: IDENFR LBRACK ConstExp RBRACK • ASSIGN ConstInitVal
+
+    ASSIGN  shift, and go to state 102
+
+
+State 82
+
+   42 Block: LBRACE • OptBlockItems RBRACE
+
+    IDENFR      shift, and go to state 35
+    INTCON      shift, and go to state 36
+    CONSTTK     shift, and go to state 4
+    INTTK       shift, and go to state 5
+    BREAKTK     shift, and go to state 103
+    CONTINUETK  shift, and go to state 104
+    IFTK        shift, and go to state 105
+    WHILETK     shift, and go to state 106
+    PRINTFTK    shift, and go to state 107
+    RETURNTK    shift, and go to state 108
+    NOT         shift, and go to state 37
+    PLUS        shift, and go to state 38
+    MINU        shift, and go to state 39
+    SEMICN      shift, and go to state 109
+    LPARENT     shift, and go to state 40
+    LBRACE      shift, and go to state 82
+
+    $default  reduce using rule 43 (OptBlockItems)
+
+    ConstDecl      go to state 110
+    BType          go to state 9
+    VarDecl        go to state 111
+    Block          go to state 112
+    OptBlockItems  go to state 113
+    BlockItemList  go to state 114
+    BlockItem      go to state 115
+    Stmt           go to state 116
+    Exp            go to state 117
+    LVal           go to state 118
+    PrimaryExp     go to state 45
+    Number         go to state 46
+    UnaryExp       go to state 47
+    MulExp         go to state 48
+    AddExp         go to state 49
+
+
+State 83
+
+   36 MainFuncDef: INTTK MAINTK LPARENT RPARENT Block •
+
+    $default  reduce using rule 36 (MainFuncDef)
+
+
+State 84
+
+   41 FuncFParam: BType IDENFR •
+
+    $default  reduce using rule 41 (FuncFParam)
+
+
+State 85
+
+   33 FuncDef: FuncType IDENFR LPARENT OptFuncFParams RPARENT • Block
+
+    LBRACE  shift, and go to state 82
+
+    Block  go to state 119
+
+
+State 86
+
+   40 FuncFParams: FuncFParams COMMA • FuncFParam
+
+    INTTK  shift, and go to state 5
+
+    BType       go to state 59
+    FuncFParam  go to state 120
+
+
+State 87
+
+   81 FuncRParams: Exp •
+
+    $default  reduce using rule 81 (FuncRParams)
+
+
+State 88
+
+   75 UnaryExp: IDENFR LPARENT OptFuncRParams • RPARENT
+
+    RPARENT  shift, and go to state 121
+
+
+State 89
+
+   80 OptFuncRParams: FuncRParams •
+   82 FuncRParams: FuncRParams • COMMA Exp
+
+    COMMA  shift, and go to state 122
+
+    $default  reduce using rule 80 (OptFuncRParams)
+
+
+State 90
+
+   69 LVal: IDENFR LBRACK Exp • RBRACK
+
+    RBRACK  shift, and go to state 123
+
+
+State 91
+
+   70 PrimaryExp: LPARENT Exp RPARENT •
+
+    $default  reduce using rule 70 (PrimaryExp)
+
+
+State 92
+
+   28 InitVal: LBRACE OptInitValList RBRACE •
+
+    $default  reduce using rule 28 (InitVal)
+
+
+State 93
+
+   32 InitValList: InitValList COMMA • InitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 41
+
+    InitVal     go to state 124
+    Exp         go to state 43
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 94
+
+   84 MulExp: MulExp MULT UnaryExp •
+
+    $default  reduce using rule 84 (MulExp)
+
+
+State 95
+
+   85 MulExp: MulExp DIV UnaryExp •
+
+    $default  reduce using rule 85 (MulExp)
+
+
+State 96
+
+   86 MulExp: MulExp MOD UnaryExp •
+
+    $default  reduce using rule 86 (MulExp)
+
+
+State 97
+
+   84 MulExp: MulExp • MULT UnaryExp
+   85       | MulExp • DIV UnaryExp
+   86       | MulExp • MOD UnaryExp
+   88 AddExp: AddExp PLUS MulExp •
+
+    MULT  shift, and go to state 72
+    DIV   shift, and go to state 73
+    MOD   shift, and go to state 74
+
+    $default  reduce using rule 88 (AddExp)
+
+
+State 98
+
+   84 MulExp: MulExp • MULT UnaryExp
+   85       | MulExp • DIV UnaryExp
+   86       | MulExp • MOD UnaryExp
+   89 AddExp: AddExp MINU MulExp •
+
+    MULT  shift, and go to state 72
+    DIV   shift, and go to state 73
+    MOD   shift, and go to state 74
+
+    $default  reduce using rule 89 (AddExp)
+
+
+State 99
+
+   25 VarDef: IDENFR LBRACK ConstExp RBRACK ASSIGN • InitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 41
+
+    InitVal     go to state 125
+    Exp         go to state 43
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 100
+
+   15 ConstInitVal: LBRACE OptConstInitValList RBRACE •
+
+    $default  reduce using rule 15 (ConstInitVal)
+
+
+State 101
+
+   19 ConstInitValList: ConstInitValList COMMA • ConstInitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 53
+
+    ConstInitVal  go to state 126
+    LVal          go to state 44
+    PrimaryExp    go to state 45
+    Number        go to state 46
+    UnaryExp      go to state 47
+    MulExp        go to state 48
+    AddExp        go to state 50
+    ConstExp      go to state 55
+
+
+State 102
+
+   11 ConstDef: IDENFR LBRACK ConstExp RBRACK ASSIGN • ConstInitVal
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+    LBRACE   shift, and go to state 53
+
+    ConstInitVal  go to state 127
+    LVal          go to state 44
+    PrimaryExp    go to state 45
+    Number        go to state 46
+    UnaryExp      go to state 47
+    MulExp        go to state 48
+    AddExp        go to state 50
+    ConstExp      go to state 55
+
+
+State 103
+
+   57 Stmt: BREAKTK • SEMICN
+
+    SEMICN  shift, and go to state 128
+
+
+State 104
+
+   58 Stmt: CONTINUETK • SEMICN
+
+    SEMICN  shift, and go to state 129
+
+
+State 105
+
+   54 Stmt: IFTK • LPARENT Cond RPARENT Stmt
+   55     | IFTK • LPARENT Cond RPARENT Stmt ELSETK Stmt
+
+    LPARENT  shift, and go to state 130
+
+
+State 106
+
+   56 Stmt: WHILETK • LPARENT Cond RPARENT Stmt
+
+    LPARENT  shift, and go to state 131
+
+
+State 107
+
+   61 Stmt: PRINTFTK • LPARENT STRCON OptPrintfArgs RPARENT SEMICN
+
+    LPARENT  shift, and go to state 132
+
+
+State 108
+
+   59 Stmt: RETURNTK • SEMICN
+   60     | RETURNTK • Exp SEMICN
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    SEMICN   shift, and go to state 133
+    LPARENT  shift, and go to state 40
+
+    Exp         go to state 134
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 109
+
+   52 Stmt: SEMICN •
+
+    $default  reduce using rule 52 (Stmt)
+
+
+State 110
+
+   47 BlockItem: ConstDecl •
+
+    $default  reduce using rule 47 (BlockItem)
+
+
+State 111
+
+   48 BlockItem: VarDecl •
+
+    $default  reduce using rule 48 (BlockItem)
+
+
+State 112
+
+   53 Stmt: Block •
+
+    $default  reduce using rule 53 (Stmt)
+
+
+State 113
+
+   42 Block: LBRACE OptBlockItems • RBRACE
+
+    RBRACE  shift, and go to state 135
+
+
+State 114
+
+   44 OptBlockItems: BlockItemList •
+   46 BlockItemList: BlockItemList • BlockItem
+
+    IDENFR      shift, and go to state 35
+    INTCON      shift, and go to state 36
+    CONSTTK     shift, and go to state 4
+    INTTK       shift, and go to state 5
+    BREAKTK     shift, and go to state 103
+    CONTINUETK  shift, and go to state 104
+    IFTK        shift, and go to state 105
+    WHILETK     shift, and go to state 106
+    PRINTFTK    shift, and go to state 107
+    RETURNTK    shift, and go to state 108
+    NOT         shift, and go to state 37
+    PLUS        shift, and go to state 38
+    MINU        shift, and go to state 39
+    SEMICN      shift, and go to state 109
+    LPARENT     shift, and go to state 40
+    LBRACE      shift, and go to state 82
+
+    $default  reduce using rule 44 (OptBlockItems)
+
+    ConstDecl   go to state 110
+    BType       go to state 9
+    VarDecl     go to state 111
+    Block       go to state 112
+    BlockItem   go to state 136
+    Stmt        go to state 116
+    Exp         go to state 117
+    LVal        go to state 118
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 115
+
+   45 BlockItemList: BlockItem •
+
+    $default  reduce using rule 45 (BlockItemList)
+
+
+State 116
+
+   49 BlockItem: Stmt •
+
+    $default  reduce using rule 49 (BlockItem)
+
+
+State 117
+
+   51 Stmt: Exp • SEMICN
+
+    SEMICN  shift, and go to state 137
+
+
+State 118
+
+   50 Stmt: LVal • ASSIGN Exp SEMICN
+   71 PrimaryExp: LVal •
+
+    ASSIGN  shift, and go to state 138
+
+    $default  reduce using rule 71 (PrimaryExp)
+
+
+State 119
+
+   33 FuncDef: FuncType IDENFR LPARENT OptFuncFParams RPARENT Block •
+
+    $default  reduce using rule 33 (FuncDef)
+
+
+State 120
+
+   40 FuncFParams: FuncFParams COMMA FuncFParam •
+
+    $default  reduce using rule 40 (FuncFParams)
+
+
+State 121
+
+   75 UnaryExp: IDENFR LPARENT OptFuncRParams RPARENT •
+
+    $default  reduce using rule 75 (UnaryExp)
+
+
+State 122
+
+   82 FuncRParams: FuncRParams COMMA • Exp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Exp         go to state 139
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 123
+
+   69 LVal: IDENFR LBRACK Exp RBRACK •
+
+    $default  reduce using rule 69 (LVal)
+
+
+State 124
+
+   32 InitValList: InitValList COMMA InitVal •
+
+    $default  reduce using rule 32 (InitValList)
+
+
+State 125
+
+   25 VarDef: IDENFR LBRACK ConstExp RBRACK ASSIGN InitVal •
+
+    $default  reduce using rule 25 (VarDef)
+
+
+State 126
+
+   19 ConstInitValList: ConstInitValList COMMA ConstInitVal •
+
+    $default  reduce using rule 19 (ConstInitValList)
+
+
+State 127
+
+   11 ConstDef: IDENFR LBRACK ConstExp RBRACK ASSIGN ConstInitVal •
+
+    $default  reduce using rule 11 (ConstDef)
+
+
+State 128
+
+   57 Stmt: BREAKTK SEMICN •
+
+    $default  reduce using rule 57 (Stmt)
+
+
+State 129
+
+   58 Stmt: CONTINUETK SEMICN •
+
+    $default  reduce using rule 58 (Stmt)
+
+
+State 130
+
+   54 Stmt: IFTK LPARENT • Cond RPARENT Stmt
+   55     | IFTK LPARENT • Cond RPARENT Stmt ELSETK Stmt
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Cond        go to state 140
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 141
+    RelExp      go to state 142
+    EqExp       go to state 143
+    LAndExp     go to state 144
+    LOrExp      go to state 145
+
+
+State 131
+
+   56 Stmt: WHILETK LPARENT • Cond RPARENT Stmt
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Cond        go to state 146
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 141
+    RelExp      go to state 142
+    EqExp       go to state 143
+    LAndExp     go to state 144
+    LOrExp      go to state 145
+
+
+State 132
+
+   61 Stmt: PRINTFTK LPARENT • STRCON OptPrintfArgs RPARENT SEMICN
+
+    STRCON  shift, and go to state 147
+
+
+State 133
+
+   59 Stmt: RETURNTK SEMICN •
+
+    $default  reduce using rule 59 (Stmt)
+
+
+State 134
+
+   60 Stmt: RETURNTK Exp • SEMICN
+
+    SEMICN  shift, and go to state 148
+
+
+State 135
+
+   42 Block: LBRACE OptBlockItems RBRACE •
+
+    $default  reduce using rule 42 (Block)
+
+
+State 136
+
+   46 BlockItemList: BlockItemList BlockItem •
+
+    $default  reduce using rule 46 (BlockItemList)
+
+
+State 137
+
+   51 Stmt: Exp SEMICN •
+
+    $default  reduce using rule 51 (Stmt)
+
+
+State 138
+
+   50 Stmt: LVal ASSIGN • Exp SEMICN
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Exp         go to state 149
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 139
+
+   82 FuncRParams: FuncRParams COMMA Exp •
+
+    $default  reduce using rule 82 (FuncRParams)
+
+
+State 140
+
+   54 Stmt: IFTK LPARENT Cond • RPARENT Stmt
+   55     | IFTK LPARENT Cond • RPARENT Stmt ELSETK Stmt
+
+    RPARENT  shift, and go to state 150
+
+
+State 141
+
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+   90 RelExp: AddExp •
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 90 (RelExp)
+
+
+State 142
+
+   91 RelExp: RelExp • LSS AddExp
+   92       | RelExp • GRE AddExp
+   93       | RelExp • LEQ AddExp
+   94       | RelExp • GEQ AddExp
+   95 EqExp: RelExp •
+
+    LSS  shift, and go to state 151
+    LEQ  shift, and go to state 152
+    GRE  shift, and go to state 153
+    GEQ  shift, and go to state 154
+
+    $default  reduce using rule 95 (EqExp)
+
+
+State 143
+
+   96 EqExp: EqExp • EQL RelExp
+   97      | EqExp • NEQ RelExp
+   98 LAndExp: EqExp •
+
+    EQL  shift, and go to state 155
+    NEQ  shift, and go to state 156
+
+    $default  reduce using rule 98 (LAndExp)
+
+
+State 144
+
+   99 LAndExp: LAndExp • AND EqExp
+  100 LOrExp: LAndExp •
+
+    AND  shift, and go to state 157
+
+    $default  reduce using rule 100 (LOrExp)
+
+
+State 145
+
+   66 Cond: LOrExp •
+  101 LOrExp: LOrExp • OR LAndExp
+
+    OR  shift, and go to state 158
+
+    $default  reduce using rule 66 (Cond)
+
+
+State 146
+
+   56 Stmt: WHILETK LPARENT Cond • RPARENT Stmt
+
+    RPARENT  shift, and go to state 159
+
+
+State 147
+
+   61 Stmt: PRINTFTK LPARENT STRCON • OptPrintfArgs RPARENT SEMICN
+
+    COMMA  shift, and go to state 160
+
+    $default  reduce using rule 62 (OptPrintfArgs)
+
+    OptPrintfArgs  go to state 161
+
+
+State 148
+
+   60 Stmt: RETURNTK Exp SEMICN •
+
+    $default  reduce using rule 60 (Stmt)
+
+
+State 149
+
+   50 Stmt: LVal ASSIGN Exp • SEMICN
+
+    SEMICN  shift, and go to state 162
+
+
+State 150
+
+   54 Stmt: IFTK LPARENT Cond RPARENT • Stmt
+   55     | IFTK LPARENT Cond RPARENT • Stmt ELSETK Stmt
+
+    IDENFR      shift, and go to state 35
+    INTCON      shift, and go to state 36
+    BREAKTK     shift, and go to state 103
+    CONTINUETK  shift, and go to state 104
+    IFTK        shift, and go to state 105
+    WHILETK     shift, and go to state 106
+    PRINTFTK    shift, and go to state 107
+    RETURNTK    shift, and go to state 108
+    NOT         shift, and go to state 37
+    PLUS        shift, and go to state 38
+    MINU        shift, and go to state 39
+    SEMICN      shift, and go to state 109
+    LPARENT     shift, and go to state 40
+    LBRACE      shift, and go to state 82
+
+    Block       go to state 112
+    Stmt        go to state 163
+    Exp         go to state 117
+    LVal        go to state 118
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 151
+
+   91 RelExp: RelExp LSS • AddExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 164
+
+
+State 152
+
+   93 RelExp: RelExp LEQ • AddExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 165
+
+
+State 153
+
+   92 RelExp: RelExp GRE • AddExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 166
+
+
+State 154
+
+   94 RelExp: RelExp GEQ • AddExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 167
+
+
+State 155
+
+   96 EqExp: EqExp EQL • RelExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 141
+    RelExp      go to state 168
+
+
+State 156
+
+   97 EqExp: EqExp NEQ • RelExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 141
+    RelExp      go to state 169
+
+
+State 157
+
+   99 LAndExp: LAndExp AND • EqExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 141
+    RelExp      go to state 142
+    EqExp       go to state 170
+
+
+State 158
+
+  101 LOrExp: LOrExp OR • LAndExp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 141
+    RelExp      go to state 142
+    EqExp       go to state 143
+    LAndExp     go to state 171
+
+
+State 159
+
+   56 Stmt: WHILETK LPARENT Cond RPARENT • Stmt
+
+    IDENFR      shift, and go to state 35
+    INTCON      shift, and go to state 36
+    BREAKTK     shift, and go to state 103
+    CONTINUETK  shift, and go to state 104
+    IFTK        shift, and go to state 105
+    WHILETK     shift, and go to state 106
+    PRINTFTK    shift, and go to state 107
+    RETURNTK    shift, and go to state 108
+    NOT         shift, and go to state 37
+    PLUS        shift, and go to state 38
+    MINU        shift, and go to state 39
+    SEMICN      shift, and go to state 109
+    LPARENT     shift, and go to state 40
+    LBRACE      shift, and go to state 82
+
+    Block       go to state 112
+    Stmt        go to state 172
+    Exp         go to state 117
+    LVal        go to state 118
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 160
+
+   63 OptPrintfArgs: COMMA • PrintfArgList
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    PrintfArgList  go to state 173
+    Exp            go to state 174
+    LVal           go to state 44
+    PrimaryExp     go to state 45
+    Number         go to state 46
+    UnaryExp       go to state 47
+    MulExp         go to state 48
+    AddExp         go to state 49
+
+
+State 161
+
+   61 Stmt: PRINTFTK LPARENT STRCON OptPrintfArgs • RPARENT SEMICN
+
+    RPARENT  shift, and go to state 175
+
+
+State 162
+
+   50 Stmt: LVal ASSIGN Exp SEMICN •
+
+    $default  reduce using rule 50 (Stmt)
+
+
+State 163
+
+   54 Stmt: IFTK LPARENT Cond RPARENT Stmt •
+   55     | IFTK LPARENT Cond RPARENT Stmt • ELSETK Stmt
+
+    ELSETK  shift, and go to state 176
+
+    ELSETK    [reduce using rule 54 (Stmt)]
+    $default  reduce using rule 54 (Stmt)
+
+
+State 164
+
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+   91 RelExp: RelExp LSS AddExp •
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 91 (RelExp)
+
+
+State 165
+
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+   93 RelExp: RelExp LEQ AddExp •
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 93 (RelExp)
+
+
+State 166
+
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+   92 RelExp: RelExp GRE AddExp •
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 92 (RelExp)
+
+
+State 167
+
+   88 AddExp: AddExp • PLUS MulExp
+   89       | AddExp • MINU MulExp
+   94 RelExp: RelExp GEQ AddExp •
+
+    PLUS  shift, and go to state 75
+    MINU  shift, and go to state 76
+
+    $default  reduce using rule 94 (RelExp)
+
+
+State 168
+
+   91 RelExp: RelExp • LSS AddExp
+   92       | RelExp • GRE AddExp
+   93       | RelExp • LEQ AddExp
+   94       | RelExp • GEQ AddExp
+   96 EqExp: EqExp EQL RelExp •
+
+    LSS  shift, and go to state 151
+    LEQ  shift, and go to state 152
+    GRE  shift, and go to state 153
+    GEQ  shift, and go to state 154
+
+    $default  reduce using rule 96 (EqExp)
+
+
+State 169
+
+   91 RelExp: RelExp • LSS AddExp
+   92       | RelExp • GRE AddExp
+   93       | RelExp • LEQ AddExp
+   94       | RelExp • GEQ AddExp
+   97 EqExp: EqExp NEQ RelExp •
+
+    LSS  shift, and go to state 151
+    LEQ  shift, and go to state 152
+    GRE  shift, and go to state 153
+    GEQ  shift, and go to state 154
+
+    $default  reduce using rule 97 (EqExp)
+
+
+State 170
+
+   96 EqExp: EqExp • EQL RelExp
+   97      | EqExp • NEQ RelExp
+   99 LAndExp: LAndExp AND EqExp •
+
+    EQL  shift, and go to state 155
+    NEQ  shift, and go to state 156
+
+    $default  reduce using rule 99 (LAndExp)
+
+
+State 171
+
+   99 LAndExp: LAndExp • AND EqExp
+  101 LOrExp: LOrExp OR LAndExp •
+
+    AND  shift, and go to state 157
+
+    $default  reduce using rule 101 (LOrExp)
+
+
+State 172
+
+   56 Stmt: WHILETK LPARENT Cond RPARENT Stmt •
+
+    $default  reduce using rule 56 (Stmt)
+
+
+State 173
+
+   63 OptPrintfArgs: COMMA PrintfArgList •
+   65 PrintfArgList: PrintfArgList • COMMA Exp
+
+    COMMA  shift, and go to state 177
+
+    $default  reduce using rule 63 (OptPrintfArgs)
+
+
+State 174
+
+   64 PrintfArgList: Exp •
+
+    $default  reduce using rule 64 (PrintfArgList)
+
+
+State 175
+
+   61 Stmt: PRINTFTK LPARENT STRCON OptPrintfArgs RPARENT • SEMICN
+
+    SEMICN  shift, and go to state 178
+
+
+State 176
+
+   55 Stmt: IFTK LPARENT Cond RPARENT Stmt ELSETK • Stmt
+
+    IDENFR      shift, and go to state 35
+    INTCON      shift, and go to state 36
+    BREAKTK     shift, and go to state 103
+    CONTINUETK  shift, and go to state 104
+    IFTK        shift, and go to state 105
+    WHILETK     shift, and go to state 106
+    PRINTFTK    shift, and go to state 107
+    RETURNTK    shift, and go to state 108
+    NOT         shift, and go to state 37
+    PLUS        shift, and go to state 38
+    MINU        shift, and go to state 39
+    SEMICN      shift, and go to state 109
+    LPARENT     shift, and go to state 40
+    LBRACE      shift, and go to state 82
+
+    Block       go to state 112
+    Stmt        go to state 179
+    Exp         go to state 117
+    LVal        go to state 118
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 177
+
+   65 PrintfArgList: PrintfArgList COMMA • Exp
+
+    IDENFR   shift, and go to state 35
+    INTCON   shift, and go to state 36
+    NOT      shift, and go to state 37
+    PLUS     shift, and go to state 38
+    MINU     shift, and go to state 39
+    LPARENT  shift, and go to state 40
+
+    Exp         go to state 180
+    LVal        go to state 44
+    PrimaryExp  go to state 45
+    Number      go to state 46
+    UnaryExp    go to state 47
+    MulExp      go to state 48
+    AddExp      go to state 49
+
+
+State 178
+
+   61 Stmt: PRINTFTK LPARENT STRCON OptPrintfArgs RPARENT SEMICN •
+
+    $default  reduce using rule 61 (Stmt)
+
+
+State 179
+
+   55 Stmt: IFTK LPARENT Cond RPARENT Stmt ELSETK Stmt •
+
+    $default  reduce using rule 55 (Stmt)
+
+
+State 180
+
+   65 PrintfArgList: PrintfArgList COMMA Exp •
+
+    $default  reduce using rule 65 (PrintfArgList)

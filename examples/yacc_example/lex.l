@@ -1,40 +1,79 @@
 %option noyywrap
+%x COMMENT
+
 %{
-
-#include "yacc.tab.h"
-
+/* C declarations go here */
+#include <stdio.h>
+#include <stdlib.h>
+#include "yacc.tab.h" // Include Yacc token definitions
+// Potentially add string.h if we use strdup later
 %}
 
 INTCON     [0-9]+
 IDENFR     [a-zA-Z_][a-zA-Z0-9_]*
-STRCON     \"([^\"\\]|\\.)*\" 
+STRCON     \"([^\"\\]|\\.)*\"
 
 %%
-"//".*$    { /* 忽略单行注释 */ }  /* 匹配从//开始到行尾的所有内容并忽略 */
 
-"main"              { printf("MAINTK main\n"); return MAIN; }
-"const"             { printf("CONSTTK const\n"); return CONST; }
-"int"               { printf("INTTK int\n"); return INT; } 
-"getint"            { printf("GETINTTK getint\n"); return GETINT; }
-"printf"            { printf("PRINTFTK printf\n"); return PRINTF; }
-"return"            { printf("RETURNTK return\n"); return RETURN; }
+"const"           { /* printf("CONSTTK const\n"); */ return CONSTTK; }
+"int"             { /* printf("INTTK int\n"); */ return INTTK; }
+"break"           { /* printf("BREAKTK break\n"); */ return BREAKTK; }
+"continue"        { /* printf("CONTINUETK continue\n"); */ return CONTINUETK; }
+"if"              { /* printf("IFTK if\n"); */ return IFTK; }
+"else"            { /* printf("ELSETK else\n"); */ return ELSETK; }
+"while"           { /* printf("WHILETK while\n"); */ return WHILETK; }
+"getint"          { /* printf("GETINTTK getint\n"); */ return GETINTTK; }
+"printf"          { /* printf("PRINTFTK printf\n"); */ return PRINTFTK; }
+"return"          { /* printf("RETURNTK return\n"); */ return RETURNTK; }
+"void"            { /* printf("VOIDTK void\n"); */ return VOIDTK; }
+"main"            { /* printf("MAINTK main\n"); */ return MAINTK; }
 
-"{"                 { printf("LBRACE %s\n", yytext); return yytext[0]; }
-"}"                 { printf("RBRACE %s\n", yytext); return yytext[0]; }
-"("                 { printf("LPARENT %s\n", yytext); return yytext[0]; }
-")"                 { printf("RPARENT %s\n", yytext); return yytext[0]; }
-";"                 { printf("SEMICN ;\n"); return yytext[0]; }
-","                 { printf("COMMA ,\n"); return yytext[0]; }
-"["                 { printf("LBRACK %s\n", yytext); return yytext[0]; }
-"]"                 { printf("RBRACK %s\n", yytext); return yytext[0]; }
+"!="              { /* printf("NEQ !=\n"); */ return NEQ; }
+"!"               { /* printf("NOT !\n"); */ return NOT; }
+"&&"              { /* printf("AND &&\n"); */ return AND; }
+"||"              { /* printf("OR ||\n"); */ return OR; }
+"<="              { /* printf("LEQ <=\n"); */ return LEQ; }
+"<"               { /* printf("LSS <\n"); */ return LSS; }
+">="              { /* printf("GEQ >=\n"); */ return GEQ; }
+">"               { /* printf("GRE >\n"); */ return GRE; }
+"=="              { /* printf("EQL ==\n"); */ return EQL; }
+"="               { /* printf("ASSIGN =\n"); */ return ASSIGN; }
+"+"               { /* printf("PLUS +\n"); */ return PLUS; }
+"-"               { /* printf("MINU -\n"); */ return MINU; }
+"*"               { /* printf("MULT *\n"); */ return MULT; }
+"/"               { /* printf("DIV /\n"); */ return DIV; }
+"%"               { /* printf("MOD %%\n"); */ return MOD; }
 
-"="                 { printf("ASSIGN =\n"); return yytext[0]; }
+";"               { /* printf("SEMICN ;\n"); */ return SEMICN; }
+","               { /* printf("COMMA ,\n"); */ return COMMA; }
+"("               { /* printf("LPARENT (\n"); */ return LPARENT; }
+")"               { /* printf("RPARENT )\n"); */ return RPARENT; }
+"["               { /* printf("LBRACK [\n"); */ return LBRACK; }
+"]"               { /* printf("RBRACK ]\n"); */ return RBRACK; }
+"{"               { /* printf("LBRACE {\n"); */ return LBRACE; }
+"}"               { /* printf("RBRACE }\n"); */ return RBRACE; }
 
-{INTCON}            { printf("INTCON %s\n", yytext); return INT_CONST; }
-{IDENFR}            { printf("IDENFR %s\n", yytext); return IDENT; }
-{STRCON}            { printf("STRCON %s\n", yytext); return STR_CONST; }
+{INTCON}          { /* printf("INTCON %s\n", yytext); */ return INTCON; /* Need yylval later */ }
+{IDENFR}          { /* printf("IDENFR %s\n", yytext); */ return IDENFR; /* Need yylval later */ }
+{STRCON}          { /* printf("STRCON %s\n", yytext); */ return STRCON; /* Need yylval later */ }
 
-[ \t\r\n]+          ;   // 忽略空白符
-.                   { printf("TOKEN: UNKNOWN (%s)\n", yytext); return yytext[0]; }
+"//".*            { /* Ignore single-line comments */ }
+"/*"              { BEGIN(COMMENT); }
+
+<COMMENT>{
+  "*/"            { BEGIN(INITIAL); }
+  [^*\n]+         { /* Eat non-star, non-newline characters */ }
+  "*"             { /* Eat the star, do nothing */ }
+  \n              { /* Explicitly consume newlines within comments */ }
+}
+
+[ \t\r\n]+        ;   /* Ignore whitespace */
+
+.                 { /* Optionally print an error for unknown characters */
+                    /* fprintf(stderr, "Error: Unknown character '%s'\n", yytext); */
+                  }
 
 %%
+
+/* Removed User code section (main function) */
+// int main(int argc, char *argv[]) { ... }

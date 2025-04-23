@@ -1,0 +1,16 @@
+Starting parse
+Entering state 0
+Stack now 0
+Reading a token
+Next token is token INTTK ()
+Shifting token INTTK ()
+Entering state 2
+Stack now 0 2
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 15
+Stack now 0 2 15
+Reading a token
+Next token is token ASSIGN ()
+Syntax error: syntax error near '='

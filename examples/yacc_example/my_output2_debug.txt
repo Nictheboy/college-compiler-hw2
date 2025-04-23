@@ -1,0 +1,1668 @@
+Starting parse
+Entering state 0
+Stack now 0
+Reading a token
+Next token is token INTTK ()
+Shifting token INTTK ()
+Entering state 2
+Stack now 0 2
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 15
+Stack now 0 2 15
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 26
+Stack now 0 2 15 26
+Reading a token
+Next token is token INTTK ()
+Shifting token INTTK ()
+Entering state 13
+Stack now 0 2 15 26 13
+Reducing stack by rule 13 (line 88):
+   $1 = token INTTK ()
+-> $$ = nterm BType ()
+Entering state 38
+Stack now 0 2 15 26 38
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 54
+Stack now 0 2 15 26 38 54
+Reducing stack by rule 42 (line 167):
+   $1 = nterm BType ()
+   $2 = token IDENFR ()
+-> $$ = nterm FuncFParam ()
+Entering state 40
+Stack now 0 2 15 26 40
+Reducing stack by rule 40 (line 162):
+   $1 = nterm FuncFParam ()
+-> $$ = nterm FuncFParams ()
+Entering state 39
+Stack now 0 2 15 26 39
+Reading a token
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 56
+Stack now 0 2 15 26 39 56
+Reading a token
+Next token is token LBRACE ()
+Shifting token LBRACE ()
+Entering state 52
+Stack now 0 2 15 26 39 56 52
+Reading a token
+Next token is token IFTK ()
+Shifting token IFTK ()
+Entering state 82
+Stack now 0 2 15 26 39 56 52 82
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 120
+Stack now 0 2 15 26 39 56 52 82 120
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 2 15 26 39 56 52 82 120 61
+Reading a token
+Next token is token EQL ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 82 120 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 82 120 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 82 120 73
+Next token is token EQL ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 144
+Stack now 0 2 15 26 39 56 52 82 120 144
+Next token is token EQL ()
+Reducing stack by rule 86 (line 244):
+   $1 = nterm AddExp ()
+-> $$ = nterm RelExp ()
+Entering state 145
+Stack now 0 2 15 26 39 56 52 82 120 145
+Next token is token EQL ()
+Reducing stack by rule 91 (line 251):
+   $1 = nterm RelExp ()
+-> $$ = nterm EqExp ()
+Entering state 146
+Stack now 0 2 15 26 39 56 52 82 120 146
+Next token is token EQL ()
+Shifting token EQL ()
+Entering state 163
+Stack now 0 2 15 26 39 56 52 82 120 146 163
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 2 15 26 39 56 52 82 120 146 163 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 2 15 26 39 56 52 82 120 146 163 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 82 120 146 163 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 82 120 146 163 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 82 120 146 163 73
+Reading a token
+Next token is token RPARENT ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 144
+Stack now 0 2 15 26 39 56 52 82 120 146 163 144
+Next token is token RPARENT ()
+Reducing stack by rule 86 (line 244):
+   $1 = nterm AddExp ()
+-> $$ = nterm RelExp ()
+Entering state 177
+Stack now 0 2 15 26 39 56 52 82 120 146 163 177
+Next token is token RPARENT ()
+Reducing stack by rule 92 (line 252):
+   $1 = nterm EqExp ()
+   $2 = token EQL ()
+   $3 = nterm RelExp ()
+-> $$ = nterm EqExp ()
+Entering state 146
+Stack now 0 2 15 26 39 56 52 82 120 146
+Next token is token RPARENT ()
+Reducing stack by rule 94 (line 256):
+   $1 = nterm EqExp ()
+-> $$ = nterm LAndExp ()
+Entering state 147
+Stack now 0 2 15 26 39 56 52 82 120 147
+Next token is token RPARENT ()
+Reducing stack by rule 96 (line 260):
+   $1 = nterm LAndExp ()
+-> $$ = nterm LOrExp ()
+Entering state 148
+Stack now 0 2 15 26 39 56 52 82 120 148
+Next token is token RPARENT ()
+Reducing stack by rule 98 (line 263):
+   $1 = nterm LOrExp ()
+-> $$ = nterm Cond ()
+Entering state 149
+Stack now 0 2 15 26 39 56 52 82 120 149
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 167
+Stack now 0 2 15 26 39 56 52 82 120 149 167
+Reading a token
+Next token is token LBRACE ()
+Shifting token LBRACE ()
+Entering state 52
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52
+Reading a token
+Next token is token RETURNTK ()
+Shifting token RETURNTK ()
+Entering state 85
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 73
+Reading a token
+Next token is token SEMICN ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 74
+Next token is token SEMICN ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 124
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 124
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 152
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 85 124 152
+Reducing stack by rule 59 (line 196):
+   $1 = token RETURNTK ()
+   $2 = nterm Exp ()
+   $3 = token SEMICN ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 91
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 91
+Reducing stack by rule 45 (line 176):
+   $1 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 90
+Reading a token
+Next token is token RBRACE ()
+Shifting token RBRACE ()
+Entering state 125
+Stack now 0 2 15 26 39 56 52 82 120 149 167 52 90 125
+Reducing stack by rule 43 (line 171):
+   $1 = token LBRACE ()
+   $2 = nterm BlockItemList ()
+   $3 = token RBRACE ()
+-> $$ = nterm Block ()
+Entering state 89
+Stack now 0 2 15 26 39 56 52 82 120 149 167 89
+Reducing stack by rule 52 (line 189):
+   $1 = nterm Block ()
+-> $$ = nterm Stmt ()
+Entering state 181
+Stack now 0 2 15 26 39 56 52 82 120 149 167 181
+Reading a token
+Next token is token IFTK ()
+Reducing stack by rule 53 (line 190):
+   $1 = token IFTK ()
+   $2 = token LPARENT ()
+   $3 = nterm Cond ()
+   $4 = token RPARENT ()
+   $5 = nterm Stmt ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 2 15 26 39 56 52 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 91
+Stack now 0 2 15 26 39 56 52 91
+Reducing stack by rule 45 (line 176):
+   $1 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 2 15 26 39 56 52 90
+Next token is token IFTK ()
+Shifting token IFTK ()
+Entering state 82
+Stack now 0 2 15 26 39 56 52 90 82
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 120
+Stack now 0 2 15 26 39 56 52 90 82 120
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 2 15 26 39 56 52 90 82 120 61
+Reading a token
+Next token is token EQL ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 82 120 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 82 120 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 90 82 120 73
+Next token is token EQL ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 144
+Stack now 0 2 15 26 39 56 52 90 82 120 144
+Next token is token EQL ()
+Reducing stack by rule 86 (line 244):
+   $1 = nterm AddExp ()
+-> $$ = nterm RelExp ()
+Entering state 145
+Stack now 0 2 15 26 39 56 52 90 82 120 145
+Next token is token EQL ()
+Reducing stack by rule 91 (line 251):
+   $1 = nterm RelExp ()
+-> $$ = nterm EqExp ()
+Entering state 146
+Stack now 0 2 15 26 39 56 52 90 82 120 146
+Next token is token EQL ()
+Shifting token EQL ()
+Entering state 163
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 73
+Reading a token
+Next token is token RPARENT ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 144
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 144
+Next token is token RPARENT ()
+Reducing stack by rule 86 (line 244):
+   $1 = nterm AddExp ()
+-> $$ = nterm RelExp ()
+Entering state 177
+Stack now 0 2 15 26 39 56 52 90 82 120 146 163 177
+Next token is token RPARENT ()
+Reducing stack by rule 92 (line 252):
+   $1 = nterm EqExp ()
+   $2 = token EQL ()
+   $3 = nterm RelExp ()
+-> $$ = nterm EqExp ()
+Entering state 146
+Stack now 0 2 15 26 39 56 52 90 82 120 146
+Next token is token RPARENT ()
+Reducing stack by rule 94 (line 256):
+   $1 = nterm EqExp ()
+-> $$ = nterm LAndExp ()
+Entering state 147
+Stack now 0 2 15 26 39 56 52 90 82 120 147
+Next token is token RPARENT ()
+Reducing stack by rule 96 (line 260):
+   $1 = nterm LAndExp ()
+-> $$ = nterm LOrExp ()
+Entering state 148
+Stack now 0 2 15 26 39 56 52 90 82 120 148
+Next token is token RPARENT ()
+Reducing stack by rule 98 (line 263):
+   $1 = nterm LOrExp ()
+-> $$ = nterm Cond ()
+Entering state 149
+Stack now 0 2 15 26 39 56 52 90 82 120 149
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 167
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167
+Reading a token
+Next token is token LBRACE ()
+Shifting token LBRACE ()
+Entering state 52
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52
+Reading a token
+Next token is token RETURNTK ()
+Shifting token RETURNTK ()
+Entering state 85
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 73
+Reading a token
+Next token is token SEMICN ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 74
+Next token is token SEMICN ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 124
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 124
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 152
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 85 124 152
+Reducing stack by rule 59 (line 196):
+   $1 = token RETURNTK ()
+   $2 = nterm Exp ()
+   $3 = token SEMICN ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 91
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 91
+Reducing stack by rule 45 (line 176):
+   $1 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 90
+Reading a token
+Next token is token RBRACE ()
+Shifting token RBRACE ()
+Entering state 125
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 52 90 125
+Reducing stack by rule 43 (line 171):
+   $1 = token LBRACE ()
+   $2 = nterm BlockItemList ()
+   $3 = token RBRACE ()
+-> $$ = nterm Block ()
+Entering state 89
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 89
+Reducing stack by rule 52 (line 189):
+   $1 = nterm Block ()
+-> $$ = nterm Stmt ()
+Entering state 181
+Stack now 0 2 15 26 39 56 52 90 82 120 149 167 181
+Reading a token
+Next token is token RETURNTK ()
+Reducing stack by rule 53 (line 190):
+   $1 = token IFTK ()
+   $2 = token LPARENT ()
+   $3 = nterm Cond ()
+   $4 = token RPARENT ()
+   $5 = nterm Stmt ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 2 15 26 39 56 52 90 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 126
+Stack now 0 2 15 26 39 56 52 90 126
+Reducing stack by rule 46 (line 177):
+   $1 = nterm BlockItemList ()
+   $2 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 2 15 26 39 56 52 90
+Next token is token RETURNTK ()
+Shifting token RETURNTK ()
+Entering state 85
+Stack now 0 2 15 26 39 56 52 90 85
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 2 15 26 39 56 52 90 85 61
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 98
+Stack now 0 2 15 26 39 56 52 90 85 61 98
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 2 15 26 39 56 52 90 85 61 98 61
+Reading a token
+Next token is token MINU ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 85 61 98 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 85 61 98 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 90 85 61 98 73
+Next token is token MINU ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74
+Next token is token MINU ()
+Shifting token MINU ()
+Entering state 111
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74 111
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74 111 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74 111 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74 111 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74 111 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 140
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74 111 140
+Reading a token
+Next token is token RPARENT ()
+Reducing stack by rule 85 (line 241):
+   $1 = nterm AddExp ()
+   $2 = token MINU ()
+   $3 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 85 61 98 74
+Next token is token RPARENT ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 131
+Stack now 0 2 15 26 39 56 52 90 85 61 98 131
+Reducing stack by rule 62 (line 202):
+   $1 = nterm Exp ()
+-> $$ = nterm FuncRParams ()
+Entering state 130
+Stack now 0 2 15 26 39 56 52 90 85 61 98 130
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 155
+Stack now 0 2 15 26 39 56 52 90 85 61 98 130 155
+Reducing stack by rule 77 (line 229):
+   $1 = token IDENFR ()
+   $2 = token LPARENT ()
+   $3 = nterm FuncRParams ()
+   $4 = token RPARENT ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 85 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 90 85 73
+Reading a token
+Next token is token PLUS ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 85 74
+Next token is token PLUS ()
+Shifting token PLUS ()
+Entering state 110
+Stack now 0 2 15 26 39 56 52 90 85 74 110
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 98
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 61
+Reading a token
+Next token is token MINU ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 73
+Next token is token MINU ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74
+Next token is token MINU ()
+Shifting token MINU ()
+Entering state 111
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74 111
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74 111 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74 111 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74 111 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74 111 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 140
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74 111 140
+Reading a token
+Next token is token RPARENT ()
+Reducing stack by rule 85 (line 241):
+   $1 = nterm AddExp ()
+   $2 = token MINU ()
+   $3 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 74
+Next token is token RPARENT ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 131
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 131
+Reducing stack by rule 62 (line 202):
+   $1 = nterm Exp ()
+-> $$ = nterm FuncRParams ()
+Entering state 130
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 130
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 155
+Stack now 0 2 15 26 39 56 52 90 85 74 110 61 98 130 155
+Reducing stack by rule 77 (line 229):
+   $1 = token IDENFR ()
+   $2 = token LPARENT ()
+   $3 = nterm FuncRParams ()
+   $4 = token RPARENT ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 2 15 26 39 56 52 90 85 74 110 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 139
+Stack now 0 2 15 26 39 56 52 90 85 74 110 139
+Reading a token
+Next token is token SEMICN ()
+Reducing stack by rule 84 (line 240):
+   $1 = nterm AddExp ()
+   $2 = token PLUS ()
+   $3 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 2 15 26 39 56 52 90 85 74
+Next token is token SEMICN ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 124
+Stack now 0 2 15 26 39 56 52 90 85 124
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 152
+Stack now 0 2 15 26 39 56 52 90 85 124 152
+Reducing stack by rule 59 (line 196):
+   $1 = token RETURNTK ()
+   $2 = nterm Exp ()
+   $3 = token SEMICN ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 2 15 26 39 56 52 90 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 126
+Stack now 0 2 15 26 39 56 52 90 126
+Reducing stack by rule 46 (line 177):
+   $1 = nterm BlockItemList ()
+   $2 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 2 15 26 39 56 52 90
+Reading a token
+Next token is token RBRACE ()
+Shifting token RBRACE ()
+Entering state 125
+Stack now 0 2 15 26 39 56 52 90 125
+Reducing stack by rule 43 (line 171):
+   $1 = token LBRACE ()
+   $2 = nterm BlockItemList ()
+   $3 = token RBRACE ()
+-> $$ = nterm Block ()
+Entering state 96
+Stack now 0 2 15 26 39 56 96
+Reducing stack by rule 38 (line 153):
+   $1 = token INTTK ()
+   $2 = token IDENFR ()
+   $3 = token LPARENT ()
+   $4 = nterm FuncFParams ()
+   $5 = token RPARENT ()
+   $6 = nterm Block ()
+-> $$ = nterm FuncDef ()
+Entering state 11
+Stack now 0 11
+Reducing stack by rule 5 (line 64):
+   $1 = nterm FuncDef ()
+-> $$ = nterm CompUnitItem ()
+Entering state 6
+Stack now 0 6
+Reducing stack by rule 2 (line 58):
+   $1 = nterm CompUnitItem ()
+-> $$ = nterm CompUnitItemList ()
+Entering state 5
+Stack now 0 5
+Reading a token
+Next token is token INTTK ()
+Shifting token INTTK ()
+Entering state 2
+Stack now 0 5 2
+Reading a token
+Next token is token MAINTK ()
+Shifting token MAINTK ()
+Entering state 16
+Stack now 0 5 2 16
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 27
+Stack now 0 5 2 16 27
+Reading a token
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 41
+Stack now 0 5 2 16 27 41
+Reading a token
+Next token is token LBRACE ()
+Shifting token LBRACE ()
+Entering state 52
+Stack now 0 5 2 16 27 41 52
+Reading a token
+Next token is token INTTK ()
+Shifting token INTTK ()
+Entering state 13
+Stack now 0 5 2 16 27 41 52 13
+Reducing stack by rule 13 (line 88):
+   $1 = token INTTK ()
+-> $$ = nterm BType ()
+Entering state 9
+Stack now 0 5 2 16 27 41 52 9
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 20
+Stack now 0 5 2 16 27 41 52 9 20
+Reading a token
+Next token is token ASSIGN ()
+Reducing stack by rule 25 (line 123):
+-> $$ = nterm ArrayDimensionsOpt ()
+Entering state 30
+Stack now 0 5 2 16 27 41 52 9 20 30
+Next token is token ASSIGN ()
+Shifting token ASSIGN ()
+Entering state 47
+Stack now 0 5 2 16 27 41 52 9 20 30 47
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 9 20 30 47 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 5 2 16 27 41 52 9 20 30 47 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 9 20 30 47 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 9 20 30 47 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 9 20 30 47 73
+Reading a token
+Next token is token COMMA ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 9 20 30 47 74
+Next token is token COMMA ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 69
+Stack now 0 5 2 16 27 41 52 9 20 30 47 69
+Reducing stack by rule 29 (line 134):
+   $1 = nterm Exp ()
+-> $$ = nterm InitVal ()
+Entering state 68
+Stack now 0 5 2 16 27 41 52 9 20 30 47 68
+Reducing stack by rule 24 (line 118):
+   $1 = token IDENFR ()
+   $2 = nterm ArrayDimensionsOpt ()
+   $3 = token ASSIGN ()
+   $4 = nterm InitVal ()
+-> $$ = nterm VarDef ()
+Entering state 22
+Stack now 0 5 2 16 27 41 52 9 22
+Reducing stack by rule 21 (line 112):
+   $1 = nterm VarDef ()
+-> $$ = nterm VarDefList ()
+Entering state 21
+Stack now 0 5 2 16 27 41 52 9 21
+Next token is token COMMA ()
+Shifting token COMMA ()
+Entering state 33
+Stack now 0 5 2 16 27 41 52 9 21 33
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 20
+Stack now 0 5 2 16 27 41 52 9 21 33 20
+Reading a token
+Next token is token ASSIGN ()
+Reducing stack by rule 25 (line 123):
+-> $$ = nterm ArrayDimensionsOpt ()
+Entering state 30
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30
+Next token is token ASSIGN ()
+Shifting token ASSIGN ()
+Entering state 47
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 73
+Reading a token
+Next token is token SEMICN ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 74
+Next token is token SEMICN ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 69
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 69
+Reducing stack by rule 29 (line 134):
+   $1 = nterm Exp ()
+-> $$ = nterm InitVal ()
+Entering state 68
+Stack now 0 5 2 16 27 41 52 9 21 33 20 30 47 68
+Reducing stack by rule 24 (line 118):
+   $1 = token IDENFR ()
+   $2 = nterm ArrayDimensionsOpt ()
+   $3 = token ASSIGN ()
+   $4 = nterm InitVal ()
+-> $$ = nterm VarDef ()
+Entering state 49
+Stack now 0 5 2 16 27 41 52 9 21 33 49
+Reducing stack by rule 22 (line 113):
+   $1 = nterm VarDefList ()
+   $2 = token COMMA ()
+   $3 = nterm VarDef ()
+-> $$ = nterm VarDefList ()
+Entering state 21
+Stack now 0 5 2 16 27 41 52 9 21
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 32
+Stack now 0 5 2 16 27 41 52 9 21 32
+Reducing stack by rule 20 (line 108):
+   $1 = nterm BType ()
+   $2 = nterm VarDefList ()
+   $3 = token SEMICN ()
+-> $$ = nterm VarDecl ()
+Entering state 10
+Stack now 0 5 2 16 27 41 52 10
+Reducing stack by rule 8 (line 70):
+   $1 = nterm VarDecl ()
+-> $$ = nterm Decl ()
+Entering state 88
+Stack now 0 5 2 16 27 41 52 88
+Reducing stack by rule 47 (line 181):
+   $1 = nterm Decl ()
+-> $$ = nterm BlockItem ()
+Entering state 91
+Stack now 0 5 2 16 27 41 52 91
+Reducing stack by rule 45 (line 176):
+   $1 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 5 2 16 27 41 52 90
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 79
+Stack now 0 5 2 16 27 41 52 90 79
+Reading a token
+Next token is token ASSIGN ()
+Reducing stack by rule 66 (line 213):
+-> $$ = nterm ArrayAccessOpt ()
+Entering state 117
+Stack now 0 5 2 16 27 41 52 90 79 117
+Reducing stack by rule 65 (line 209):
+   $1 = token IDENFR ()
+   $2 = nterm ArrayAccessOpt ()
+-> $$ = nterm LVal ()
+Entering state 94
+Stack now 0 5 2 16 27 41 52 90 94
+Next token is token ASSIGN ()
+Shifting token ASSIGN ()
+Entering state 128
+Stack now 0 5 2 16 27 41 52 90 94 128
+Reading a token
+Next token is token GETINTTK ()
+Shifting token GETINTTK ()
+Entering state 62
+Stack now 0 5 2 16 27 41 52 90 94 128 62
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 99
+Stack now 0 5 2 16 27 41 52 90 94 128 62 99
+Reading a token
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 132
+Stack now 0 5 2 16 27 41 52 90 94 128 62 99 132
+Reducing stack by rule 78 (line 230):
+   $1 = token GETINTTK ()
+   $2 = token LPARENT ()
+   $3 = token RPARENT ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 73
+Reading a token
+Next token is token SEMICN ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 74
+Next token is token SEMICN ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 153
+Stack now 0 5 2 16 27 41 52 90 94 128 153
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 171
+Stack now 0 5 2 16 27 41 52 90 94 128 153 171
+Reducing stack by rule 49 (line 186):
+   $1 = nterm LVal ()
+   $2 = token ASSIGN ()
+   $3 = nterm Exp ()
+   $4 = token SEMICN ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 5 2 16 27 41 52 90 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 126
+Stack now 0 5 2 16 27 41 52 90 126
+Reducing stack by rule 46 (line 177):
+   $1 = nterm BlockItemList ()
+   $2 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 5 2 16 27 41 52 90
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 79
+Stack now 0 5 2 16 27 41 52 90 79
+Reading a token
+Next token is token ASSIGN ()
+Reducing stack by rule 66 (line 213):
+-> $$ = nterm ArrayAccessOpt ()
+Entering state 117
+Stack now 0 5 2 16 27 41 52 90 79 117
+Reducing stack by rule 65 (line 209):
+   $1 = token IDENFR ()
+   $2 = nterm ArrayAccessOpt ()
+-> $$ = nterm LVal ()
+Entering state 94
+Stack now 0 5 2 16 27 41 52 90 94
+Next token is token ASSIGN ()
+Shifting token ASSIGN ()
+Entering state 128
+Stack now 0 5 2 16 27 41 52 90 94 128
+Reading a token
+Next token is token GETINTTK ()
+Shifting token GETINTTK ()
+Entering state 62
+Stack now 0 5 2 16 27 41 52 90 94 128 62
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 99
+Stack now 0 5 2 16 27 41 52 90 94 128 62 99
+Reading a token
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 132
+Stack now 0 5 2 16 27 41 52 90 94 128 62 99 132
+Reducing stack by rule 78 (line 230):
+   $1 = token GETINTTK ()
+   $2 = token LPARENT ()
+   $3 = token RPARENT ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 73
+Reading a token
+Next token is token SEMICN ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 74
+Next token is token SEMICN ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 153
+Stack now 0 5 2 16 27 41 52 90 94 128 153
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 171
+Stack now 0 5 2 16 27 41 52 90 94 128 153 171
+Reducing stack by rule 49 (line 186):
+   $1 = nterm LVal ()
+   $2 = token ASSIGN ()
+   $3 = nterm Exp ()
+   $4 = token SEMICN ()
+-> $$ = nterm Stmt ()
+Entering state 92
+Stack now 0 5 2 16 27 41 52 90 92
+Reducing stack by rule 48 (line 182):
+   $1 = nterm Stmt ()
+-> $$ = nterm BlockItem ()
+Entering state 126
+Stack now 0 5 2 16 27 41 52 90 126
+Reducing stack by rule 46 (line 177):
+   $1 = nterm BlockItemList ()
+   $2 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 5 2 16 27 41 52 90
+Reading a token
+Next token is token CONSTTK ()
+Shifting token CONSTTK ()
+Entering state 1
+Stack now 0 5 2 16 27 41 52 90 1
+Reading a token
+Next token is token INTTK ()
+Shifting token INTTK ()
+Entering state 13
+Stack now 0 5 2 16 27 41 52 90 1 13
+Reducing stack by rule 13 (line 88):
+   $1 = token INTTK ()
+-> $$ = nterm BType ()
+Entering state 14
+Stack now 0 5 2 16 27 41 52 90 1 14
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 23
+Stack now 0 5 2 16 27 41 52 90 1 14 23
+Reading a token
+Next token is token LBRACK ()
+Shifting token LBRACK ()
+Entering state 29
+Stack now 0 5 2 16 27 41 52 90 1 14 23 29
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 90 1 14 23 29 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 45
+Stack now 0 5 2 16 27 41 52 90 1 14 23 29 45
+Reducing stack by rule 99 (line 265):
+   $1 = nterm Number ()
+-> $$ = nterm ConstExp ()
+Entering state 46
+Stack now 0 5 2 16 27 41 52 90 1 14 23 29 46
+Reading a token
+Next token is token RBRACK ()
+Shifting token RBRACK ()
+Entering state 60
+Stack now 0 5 2 16 27 41 52 90 1 14 23 29 46 60
+Reducing stack by rule 27 (line 128):
+   $1 = token LBRACK ()
+   $2 = nterm ConstExp ()
+   $3 = token RBRACK ()
+-> $$ = nterm ArrayDimensions ()
+Entering state 31
+Stack now 0 5 2 16 27 41 52 90 1 14 23 31
+Reading a token
+Next token is token ASSIGN ()
+Reducing stack by rule 26 (line 124):
+   $1 = nterm ArrayDimensions ()
+-> $$ = nterm ArrayDimensionsOpt ()
+Entering state 34
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34
+Next token is token ASSIGN ()
+Shifting token ASSIGN ()
+Entering state 50
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50
+Reading a token
+Next token is token LBRACE ()
+Shifting token LBRACE ()
+Entering state 76
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 45
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 45
+Reducing stack by rule 99 (line 265):
+   $1 = nterm Number ()
+-> $$ = nterm ConstExp ()
+Entering state 78
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 78
+Reducing stack by rule 14 (line 92):
+   $1 = nterm ConstExp ()
+-> $$ = nterm ConstInitVal ()
+Entering state 113
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 113
+Reducing stack by rule 18 (line 103):
+   $1 = nterm ConstInitVal ()
+-> $$ = nterm ConstInitValList ()
+Entering state 115
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115
+Reading a token
+Next token is token COMMA ()
+Shifting token COMMA ()
+Entering state 142
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115 142
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115 142 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 45
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115 142 45
+Reducing stack by rule 99 (line 265):
+   $1 = nterm Number ()
+-> $$ = nterm ConstExp ()
+Entering state 78
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115 142 78
+Reducing stack by rule 14 (line 92):
+   $1 = nterm ConstExp ()
+-> $$ = nterm ConstInitVal ()
+Entering state 157
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115 142 157
+Reducing stack by rule 19 (line 104):
+   $1 = nterm ConstInitValList ()
+   $2 = token COMMA ()
+   $3 = nterm ConstInitVal ()
+-> $$ = nterm ConstInitValList ()
+Entering state 115
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 115
+Reading a token
+Next token is token RBRACE ()
+Reducing stack by rule 17 (line 99):
+   $1 = nterm ConstInitValList ()
+-> $$ = nterm ConstInitValListOpt ()
+Entering state 114
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 114
+Next token is token RBRACE ()
+Shifting token RBRACE ()
+Entering state 141
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 76 114 141
+Reducing stack by rule 15 (line 93):
+   $1 = token LBRACE ()
+   $2 = nterm ConstInitValListOpt ()
+   $3 = token RBRACE ()
+-> $$ = nterm ConstInitVal ()
+Entering state 77
+Stack now 0 5 2 16 27 41 52 90 1 14 23 34 50 77
+Reducing stack by rule 12 (line 83):
+   $1 = token IDENFR ()
+   $2 = nterm ArrayDimensionsOpt ()
+   $3 = token ASSIGN ()
+   $4 = nterm ConstInitVal ()
+-> $$ = nterm ConstDef ()
+Entering state 25
+Stack now 0 5 2 16 27 41 52 90 1 14 25
+Reducing stack by rule 10 (line 78):
+   $1 = nterm ConstDef ()
+-> $$ = nterm ConstDefList ()
+Entering state 24
+Stack now 0 5 2 16 27 41 52 90 1 14 24
+Reading a token
+Next token is token SEMICN ()
+Shifting token SEMICN ()
+Entering state 35
+Stack now 0 5 2 16 27 41 52 90 1 14 24 35
+Reducing stack by rule 9 (line 74):
+   $1 = token CONSTTK ()
+   $2 = nterm BType ()
+   $3 = nterm ConstDefList ()
+   $4 = token SEMICN ()
+-> $$ = nterm ConstDecl ()
+Entering state 8
+Stack now 0 5 2 16 27 41 52 90 8
+Reducing stack by rule 7 (line 69):
+   $1 = nterm ConstDecl ()
+-> $$ = nterm Decl ()
+Entering state 88
+Stack now 0 5 2 16 27 41 52 90 88
+Reducing stack by rule 47 (line 181):
+   $1 = nterm Decl ()
+-> $$ = nterm BlockItem ()
+Entering state 126
+Stack now 0 5 2 16 27 41 52 90 126
+Reducing stack by rule 46 (line 177):
+   $1 = nterm BlockItemList ()
+   $2 = nterm BlockItem ()
+-> $$ = nterm BlockItemList ()
+Entering state 90
+Stack now 0 5 2 16 27 41 52 90
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 79
+Stack now 0 5 2 16 27 41 52 90 79
+Reading a token
+Next token is token ASSIGN ()
+Reducing stack by rule 66 (line 213):
+-> $$ = nterm ArrayAccessOpt ()
+Entering state 117
+Stack now 0 5 2 16 27 41 52 90 79 117
+Reducing stack by rule 65 (line 209):
+   $1 = token IDENFR ()
+   $2 = nterm ArrayAccessOpt ()
+-> $$ = nterm LVal ()
+Entering state 94
+Stack now 0 5 2 16 27 41 52 90 94
+Next token is token ASSIGN ()
+Shifting token ASSIGN ()
+Entering state 128
+Stack now 0 5 2 16 27 41 52 90 94 128
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 66
+Stack now 0 5 2 16 27 41 52 90 94 128 66
+Reading a token
+Next token is token MINU ()
+Shifting token MINU ()
+Entering state 65
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 66
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 61
+Reading a token
+Next token is token MULT ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 73
+Next token is token MULT ()
+Shifting token MULT ()
+Entering state 107
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 73 107
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 73 107 61
+Reading a token
+Next token is token RPARENT ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 73 107 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 136
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 73 107 136
+Reducing stack by rule 80 (line 234):
+   $1 = nterm MulExp ()
+   $2 = token MULT ()
+   $3 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 73
+Next token is token RPARENT ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 74
+Next token is token RPARENT ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 103
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 103
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 133
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 66 103 133
+Reducing stack by rule 68 (line 218):
+   $1 = token LPARENT ()
+   $2 = nterm Exp ()
+   $3 = token RPARENT ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 102
+Stack now 0 5 2 16 27 41 52 90 94 128 66 65 102
+Reducing stack by rule 74 (line 226):
+   $1 = token MINU ()
+   $2 = nterm UnaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 66 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73
+Reading a token
+Next token is token MULT ()
+Shifting token MULT ()
+Entering state 107
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61
+Reading a token
+Next token is token LPARENT ()
+Shifting token LPARENT ()
+Entering state 98
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 73
+Reading a token
+Next token is token RPARENT ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 74
+Next token is token RPARENT ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 131
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 131
+Reducing stack by rule 62 (line 202):
+   $1 = nterm Exp ()
+-> $$ = nterm FuncRParams ()
+Entering state 130
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 130
+Next token is token RPARENT ()
+Shifting token RPARENT ()
+Entering state 155
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 61 98 130 155
+Reducing stack by rule 77 (line 229):
+   $1 = token IDENFR ()
+   $2 = token LPARENT ()
+   $3 = nterm FuncRParams ()
+   $4 = token RPARENT ()
+-> $$ = nterm UnaryExp ()
+Entering state 136
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73 107 136
+Reducing stack by rule 80 (line 234):
+   $1 = nterm MulExp ()
+   $2 = token MULT ()
+   $3 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 73
+Stack now 0 5 2 16 27 41 52 90 94 128 66 73
+Reading a token
+Next token is token PLUS ()
+Reducing stack by rule 83 (line 239):
+   $1 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74
+Next token is token PLUS ()
+Shifting token PLUS ()
+Entering state 110
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110
+Reading a token
+Next token is token INTCON ()
+Shifting token INTCON ()
+Entering state 44
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 44
+Reducing stack by rule 71 (line 222):
+   $1 = token INTCON ()
+-> $$ = nterm Number ()
+Entering state 71
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 71
+Reducing stack by rule 70 (line 220):
+   $1 = nterm Number ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 139
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 139
+Reading a token
+Next token is token PLUS ()
+Reducing stack by rule 84 (line 240):
+   $1 = nterm AddExp ()
+   $2 = token PLUS ()
+   $3 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74
+Next token is token PLUS ()
+Shifting token PLUS ()
+Entering state 110
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110
+Reading a token
+Next token is token IDENFR ()
+Shifting token IDENFR ()
+Entering state 61
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 61
+Reading a token
+Next token is token LBRACK ()
+Reducing stack by rule 69 (line 219):
+   $1 = token IDENFR ()
+-> $$ = nterm PrimaryExp ()
+Entering state 70
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 70
+Reducing stack by rule 72 (line 224):
+   $1 = nterm PrimaryExp ()
+-> $$ = nterm UnaryExp ()
+Entering state 72
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 72
+Reducing stack by rule 79 (line 233):
+   $1 = nterm UnaryExp ()
+-> $$ = nterm MulExp ()
+Entering state 139
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74 110 139
+Next token is token LBRACK ()
+Reducing stack by rule 84 (line 240):
+   $1 = nterm AddExp ()
+   $2 = token PLUS ()
+   $3 = nterm MulExp ()
+-> $$ = nterm AddExp ()
+Entering state 74
+Stack now 0 5 2 16 27 41 52 90 94 128 66 74
+Next token is token LBRACK ()
+Reducing stack by rule 64 (line 207):
+   $1 = nterm AddExp ()
+-> $$ = nterm Exp ()
+Entering state 103
+Stack now 0 5 2 16 27 41 52 90 94 128 66 103
+Next token is token LBRACK ()
+Syntax error: syntax error near '['
+<Stmt>
+<Block>
+<Stmt>
+<Stmt>
+<Block>
+<Stmt>
+<Stmt>
+<Block>
+<FuncDef>
+<VarDecl>
+<Stmt>
+<Stmt>
+<ConstDecl>
